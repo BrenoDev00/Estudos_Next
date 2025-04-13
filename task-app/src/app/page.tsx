@@ -1,6 +1,7 @@
 import Image from "next/image";
 import heroImage from "../../public/assets/hero.png";
 import { twMerge } from "tailwind-merge";
+import { LabelBox } from "@/components/label-box";
 
 export default function Home() {
   return (
@@ -35,25 +36,13 @@ export default function Home() {
           "max-sm:flex-col"
         )}
       >
-        <article
-          className={twMerge(
-            "font-bold text-[22px] text-[#0f0f0f] bg-[#fafafa] text-center w-[300px]",
-            "py-[14px] px-[44px] rounded-[8px] hover:scale-110 transition duration-300",
-            "max-md:text-[12px] max-sm:text-[10px] max-md:py-[10px] max-md:px-[30px]"
-          )}
-        >
-          + 7 mil posts
-        </article>
-
-        <article
-          className={twMerge(
-            "font-bold text-[22px] text-[#0f0f0f] bg-[#fafafa] text-center w-[300px]",
-            "py-[14px] px-[44px] rounded-[8px] hover:scale-110 transition duration-300",
-            "max-md:text-[12px] max-sm:text-[10px] max-md:py-[10px] max-md:px-[30px]"
-          )}
-        >
+        <LabelBox className="hover:scale-110 transition duration-300">
+          + 7mil posts
+        </LabelBox>
+        
+        <LabelBox className="hover:scale-110 transition duration-300">
           + 1 mil comentários
-        </article>
+        </LabelBox>
       </div>
     </main>
   );
