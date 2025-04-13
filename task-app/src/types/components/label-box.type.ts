@@ -1,4 +1,6 @@
+import { ReactNode } from "react";
+
 export interface LabelBoxProps {
-  children: string;
+  children: ReactNode;
   className?: string;
 }
