@@ -6,7 +6,9 @@ export const Button = ({ variant, className, type, children }: ButtonProps) => {
 
   if (variant === "primary") {
     buttonStyle = twMerge(
-      "bg-[#0F0F0F] rounded-full py-[6px] px-[30px] border border-white cursor-pointer"
+      "bg-[#0F0F0F] rounded-full py-[6px] px-[30px]",
+      "border border-white cursor-pointer",
+      "hover:bg-white hover:text-[#0f0f0f] transition duration-300"
     );
 
     return (
