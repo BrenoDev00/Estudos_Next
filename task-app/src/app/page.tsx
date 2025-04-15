@@ -10,7 +10,7 @@ export default function Home() {
 
       <main
         className={twMerge(
-          "bg-[#0F0F0F] w-screen h-screen",
+          "bg-bg-black w-screen h-screen",
           "flex justify-center items-center flex-col p-4"
         )}
       >

@@ -7,14 +7,14 @@ export const Header = () => {
     <header
       className={twMerge(
         "flex items-center justify-around p-[10px]",
-        "bg-[#0F0F0F] max-md:justify-between px-[30px]"
+        "bg-bg-black max-md:justify-between px-[30px]"
       )}
     >
       <nav className="flex items-center gap-[20px] font-normal">
         <Link href={"/"} className="text-[32px]">
-          <h1 className="flex items-center gap">
-            Tarefas <span className="text-[#EA3140] font-semibold">+</span>
-          </h1>
+          <p className="flex items-center gap">
+            Tarefas <span className="text-red font-semibold">+</span>
+          </p>
         </Link>
 
         <Link href={"/dashboard"}>
