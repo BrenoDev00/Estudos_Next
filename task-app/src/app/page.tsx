@@ -6,7 +6,6 @@ import { twMerge } from "tailwind-merge";
 import { LabelBox, Header } from "@/components";
 
 export default function Home() {
-  console.log("test");
   return (
     <>
       <Header />
