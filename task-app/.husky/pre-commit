@@ -1,2 +1,1 @@
-echo "npm run lint" > .husky/pre-commit
-chmod +x .husky/pre-commit
+npm test
