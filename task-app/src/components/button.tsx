@@ -1,3 +1,5 @@
+"use client";
+
 import { ButtonProps } from "@/types/components/button.type";
 import { twMerge } from "tailwind-merge";
 

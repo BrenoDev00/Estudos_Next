@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import heroImage from "../../public/assets/hero.png";
 import { twMerge } from "tailwind-merge";

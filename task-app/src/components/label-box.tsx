@@ -1,3 +1,5 @@
+"use client";
+
 import { twMerge } from "tailwind-merge";
 import { LabelBoxProps } from "@/types/components/label-box.type";
 
