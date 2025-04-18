@@ -1,6 +1,6 @@
 "use client";
 
-import { ButtonProps } from "@/types/components/button.type";
+import { ButtonProps } from "@/types/components";
 import { twMerge } from "tailwind-merge";
 
 export const Button = ({ variant, className, type, children }: ButtonProps) => {

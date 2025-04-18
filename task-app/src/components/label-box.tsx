@@ -1,7 +1,7 @@
 "use client";
 
 import { twMerge } from "tailwind-merge";
-import { LabelBoxProps } from "@/types/components/label-box.type";
+import { LabelBoxProps } from "@/types/components";
 
 export const LabelBox = ({ children, className }: LabelBoxProps) => {
   return (

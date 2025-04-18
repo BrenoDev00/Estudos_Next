@@ -42,7 +42,7 @@ export default function Home() {
           )}
         >
           <LabelBox className="hover:scale-110 transition duration-300">
-            + 7mil posts
+            + 7 mil posts
           </LabelBox>
 
           <LabelBox className="hover:scale-110 transition duration-300">
