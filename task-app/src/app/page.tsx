@@ -4,10 +4,12 @@ import Image from "next/image";
 import heroImage from "../../public/assets/hero.png";
 import { twMerge } from "tailwind-merge";
 import { LabelBox, Header } from "@/components";
+import { SessionProvider } from "next-auth/react";
+import { SessionType } from "@/types/session.type";
 
-export default function Home() {
+export default function Home({ session }: SessionType) {
   return (
-    <>
+    <SessionProvider session={session}>
       <Header />
 
       <main
@@ -50,6 +52,6 @@ export default function Home() {
           </LabelBox>
         </div>
       </main>
-    </>
+    </SessionProvider>
   );
 }

@@ -3,7 +3,7 @@
 import { ButtonProps } from "@/types/components";
 import { twMerge } from "tailwind-merge";
 
-export const Button = ({ variant, className, type, children }: ButtonProps) => {
+export const Button = ({ variant, className, type, children, onClick }: ButtonProps) => {
   let buttonStyle: string;
 
   if (variant === "primary") {
@@ -14,7 +14,7 @@ export const Button = ({ variant, className, type, children }: ButtonProps) => {
     );
 
     return (
-      <button type={type} className={twMerge(buttonStyle, className)}>
+      <button onClick={onClick} type={type} className={twMerge(buttonStyle, className)}>
         {children}
       </button>
     );
@@ -26,7 +26,7 @@ export const Button = ({ variant, className, type, children }: ButtonProps) => {
     );
 
     return (
-      <button type={type} className={twMerge(buttonStyle, className)}>
+      <button onClick={onClick} type={type} className={twMerge(buttonStyle, className)}>
         {children}
       </button>
     );

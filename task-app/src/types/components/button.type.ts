@@ -9,4 +9,5 @@ export interface ButtonProps {
   type: ButtonAttributeType;
   className?: string;
   children: ReactNode;
+  onClick?: () => void;
 }
