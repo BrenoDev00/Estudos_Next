@@ -16,7 +16,13 @@ export const Header = () => {
       )}
     >
       <nav className="flex items-center gap-[20px] font-normal">
-        <Link href={"/"} className="text-[32px]">
+        <Link
+          href={"/"}
+          className={twMerge(
+            "text-[32px]",
+            "max-md:text-[28px] max-sm:text-[24px]"
+          )}
+        >
           <p className="flex items-center gap">
             Tarefas <span className="text-red font-semibold">+</span>
           </p>
