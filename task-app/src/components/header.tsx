@@ -22,7 +22,7 @@ export const Header = () => {
           </p>
         </Link>
 
-        {session && (
+        {session?.user && (
           <Link href={"/dashboard"}>
             <LabelBox className="py-[6px] px-[4px] w-[130px] text-[14px]">
               Meu Painel
