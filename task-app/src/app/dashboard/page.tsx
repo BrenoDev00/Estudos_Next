@@ -16,13 +16,23 @@ export default function Dashboard({ session }: SessionType) {
         >
           <section className="grow max-w-[1024px] px-[128px]">
             <div>
-              <h1 className="font-bold text-[38px] mt-[32px]">
+              <h1
+                className={twMerge(
+                  "font-bold text-[38px] mt-[32px]",
+                  "max-md:text-[30px] max-sm:text-[25px]"
+                )}
+              >
                 Qual sua tarefa?
               </h1>
 
               <form className="flex flex-col gap-[16px]">
                 <div className="flex flex-col gap-[13px]">
-                  <label htmlFor="task-field">Informe a tarefa</label>
+                  <label
+                    htmlFor="task-field"
+                    className={twMerge("max-md:text-[14px] max-sm:text-[12px]")}
+                  >
+                    Informe a tarefa
+                  </label>
                   <Textarea
                     id={"task-field"}
                     rows={8}
@@ -32,13 +42,22 @@ export default function Dashboard({ session }: SessionType) {
                   />
                 </div>
 
-                <div className="flex gap-[13px]">
+                <div className="flex gap-[13px] items-center">
                   <input
                     type="checkbox"
                     id="public-task"
-                    className="w-[18px] h-[18px] cursor-pointer"
+                    className={twMerge(
+                      "w-[18px] h-[18px] cursor-pointer",
+                      "max-md:w-[14px] max-md:h-[18px]"
+                    )}
                   />
-                  <label htmlFor="public-task" className="font-medium">
+                  <label
+                    htmlFor="public-task"
+                    className={twMerge(
+                      "font-medium",
+                      "max-md:text-[14px] max-sm:text-[12px]"
+                    )}
+                  >
                     Deixar tarefa pública
                   </label>
                 </div>

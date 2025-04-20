@@ -24,7 +24,12 @@ export const Header = () => {
 
         {session?.user && (
           <Link href={"/dashboard"}>
-            <LabelBox className="py-[6px] px-[4px] w-[130px] text-[14px]">
+            <LabelBox
+              className={twMerge(
+                "py-[6px] px-[4px] w-[130px] text-[14px]",
+                "max-md:px-[2px] max-md:py-[6px]"
+              )}
+            >
               Meu Painel
             </LabelBox>
           </Link>

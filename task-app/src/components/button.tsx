@@ -16,7 +16,9 @@ export const Button = ({
     buttonStyle = twMerge(
       "bg-bg-black rounded-full py-[8px] px-[30px]",
       "border border-white cursor-pointer",
-      "hover:bg-white hover:text-bg-black transition duration-300"
+      "hover:bg-white hover:text-bg-black transition duration-300",
+      "max-md:text-[14px] max-sm:text-[12px]",
+      "max-md:px-[25px] max-md:py-[6px] max-sm:px-[20px]"
     );
 
     return (
@@ -32,7 +34,9 @@ export const Button = ({
 
   if (variant === "secondary") {
     buttonStyle = twMerge(
-      "bg-bg-blue rounded-[8px] py-[8px] px-[30px] cursor-pointer font-bold"
+      "bg-bg-blue rounded-[8px] py-[8px] px-[30px] cursor-pointer font-bold",
+      "max-md:text-[14px] max-sm:text-[12px]",
+      "max-md:px-[25px] max-md:py-[6px] max-sm:px-[20px]"
     );
 
     return (
