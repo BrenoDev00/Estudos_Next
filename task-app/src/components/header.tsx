@@ -37,7 +37,7 @@ export const Header = () => {
         </Button>
       ) : session ? (
         <Button type="button" variant="primary" onClick={() => signOut()}>
-          Olá {session?.user?.name}
+          Olá, {session?.user?.name}
         </Button>
       ) : (
         <Button
