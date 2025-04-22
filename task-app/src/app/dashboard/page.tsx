@@ -11,10 +11,8 @@ export default function Dashboard({ session }: SessionType) {
       <ProtectedPage>
         <Header />
 
-        <main
-          className={twMerge("bg-bg-black flex items-center justify-center")}
-        >
-          <section className="grow max-w-[1024px] px-[128px]">
+        <main className={twMerge("bg-bg-black flex flex-col items-center")}>
+          <section className="w-[1024px] px-[128px] pb-[36px]">
             <div>
               <h1
                 className={twMerge(
@@ -67,6 +65,14 @@ export default function Dashboard({ session }: SessionType) {
                 </Button>
               </form>
             </div>
+          </section>
+
+          <section className="bg-white w-full flex flex-col items-center gap-[30px]">
+            <h2 className="text-bg-black font-bold text-[38px] mt-[60px]">
+              Minhas tarefas
+            </h2>
+
+            <div className="w-[1024px] text-bg-black">sdfdsf dsfsdf</div>
           </section>
         </main>
       </ProtectedPage>

@@ -15,6 +15,7 @@ body {
 @theme {
   --color-bg-black: #0f0f0f;
   --color-bg-blue: #3183ff;
+  --color-dark-blue: #316bff;
   --color-red: #ea3140;
   --color-white: #ffffff;
   --color-light-gray: #cccccc;

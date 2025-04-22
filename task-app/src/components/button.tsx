@@ -34,7 +34,7 @@ export const Button = ({
 
   if (variant === "secondary") {
     buttonStyle = twMerge(
-      "bg-bg-blue rounded-[8px] py-[8px] px-[30px] cursor-pointer font-bold",
+      "bg-bg-blue rounded-[8px] py-[8px] px-[30px] cursor-pointer font-bold hover:bg-dark-blue",
       "max-md:text-[14px] max-sm:text-[12px]",
       "max-md:px-[25px] max-md:py-[6px] max-sm:px-[20px]"
     );
