@@ -1,6 +1,6 @@
 "use client";
 
-import { Header, ProtectedPage, Textarea, Button } from "@/components";
+import { Header, ProtectedPage, Textarea, Button, Task } from "@/components";
 import { SessionProvider } from "next-auth/react";
 import { SessionType } from "@/types/session.type";
 import { twMerge } from "tailwind-merge";
@@ -12,7 +12,7 @@ export default function Dashboard({ session }: SessionType) {
         <Header />
 
         <main className={twMerge("bg-bg-black flex flex-col items-center")}>
-          <section className="w-[1024px] px-[128px] pb-[36px]">
+          <section className="w-[1024px] px-[128px] pb-[36px] ">
             <div>
               <h1
                 className={twMerge(
@@ -67,12 +67,38 @@ export default function Dashboard({ session }: SessionType) {
             </div>
           </section>
 
-          <section className="bg-white w-full flex flex-col items-center gap-[30px]">
-            <h2 className="text-bg-black font-bold text-[38px] mt-[60px]">
+          <section className="bg-white w-full flex flex-col items-center gap-[30px] pb-[60px]">
+            <h2
+              className={twMerge(
+                "text-bg-black font-bold text-[38px] mt-[60px]",
+                "max-md:text-[30px] max-sm:text-[25px]"
+              )}
+            >
               Minhas tarefas
             </h2>
 
-            <div className="w-[1024px] text-bg-black">sdfdsf dsfsdf</div>
+            <div className="w-[1024px] text-bg-black flex flex-col gap-[16px]">
+              <Task
+                variant="newTask"
+                text="Lorem ipsum dolor sit amet consectetur. Elementum pulvinar eget ut in pulvinar enim vestibulum curabitur aenean. Lorem ipsum dolor sit amet consectetur. Elementum pulvinar eget ut in pulvinar enim vestibulum curabitur aenean."
+              />
+              <Task
+                variant="newTask"
+                text="Lorem ipsum dolor sit amet consectetur. Elementum pulvinar eget ut in pulvinar enim vestibulum curabitur aenean. Lorem ipsum dolor sit amet consectetur. Elementum pulvinar eget ut in pulvinar enim vestibulum curabitur aenean. Lorem ipsum dolor sit amet consectetur. Elementum pulvinar eget ut in pulvinar enim vestibulum curabitur aenean."
+              />
+              <Task
+                variant="newTask"
+                text="Lorem ipsum dolor sit amet consectetur. Elementum pulvinar eget ut in pulvinar enim vestibulum curabitur aenean. Lorem ipsum dolor sit amet consectetur. Elementum pulvinar eget ut in pulvinar enim vestibulum curabitur aenean."
+              />
+              <Task
+                variant="newTask"
+                text="Lorem ipsum dolor sit amet consectetur. Elementum pulvinar eget ut in pulvinar enim vestibulum curabitur aenean. Lorem ipsum dolor sit amet consectetur. Elementum pulvinar eget ut in pulvinar enim vestibulum curabitur aenean."
+              />
+              <Task
+                variant="newTask"
+                text="Lorem ipsum dolor sit amet consectetur. Elementum pulvinar eget ut in pulvinar enim vestibulum curabitur aenean. Lorem ipsum dolor sit amet consectetur. Elementum pulvinar eget ut in pulvinar enim vestibulum curabitur aenean."
+              />
+            </div>
           </section>
         </main>
       </ProtectedPage>
