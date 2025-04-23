@@ -12,7 +12,12 @@ export default function Dashboard({ session }: SessionType) {
         <Header />
 
         <main className={twMerge("bg-bg-black flex flex-col items-center")}>
-          <section className="w-[1024px] px-[128px] pb-[36px] ">
+          <section
+            className={twMerge(
+              "w-[1024px] px-[128px] pb-[36px]",
+              "max-md:w-[800px] max-sm:w-[600px]"
+            )}
+          >
             <div>
               <h1
                 className={twMerge(
@@ -67,7 +72,7 @@ export default function Dashboard({ session }: SessionType) {
             </div>
           </section>
 
-          <section className="bg-white w-full flex flex-col items-center gap-[30px] pb-[60px]">
+          <section className="bg-white w-full flex flex-col items-center gap-[30px] pb-[60px] px-[20px]">
             <h2
               className={twMerge(
                 "text-bg-black font-bold text-[38px] mt-[60px]",
@@ -77,7 +82,7 @@ export default function Dashboard({ session }: SessionType) {
               Minhas tarefas
             </h2>
 
-            <div className="w-[1024px] text-bg-black flex flex-col gap-[16px]">
+            <div className="max-w-[1024px] text-bg-black flex flex-col gap-[16px]">
               <Task
                 variant="newTask"
                 text="Lorem ipsum dolor sit amet consectetur. Elementum pulvinar eget ut in pulvinar enim vestibulum curabitur aenean. Lorem ipsum dolor sit amet consectetur. Elementum pulvinar eget ut in pulvinar enim vestibulum curabitur aenean."
