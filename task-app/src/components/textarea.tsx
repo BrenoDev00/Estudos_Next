@@ -7,6 +7,7 @@ export const Textarea = ({
   cols,
   className,
   placeholder,
+  register,
 }: TextareaProps) => {
   return (
     <textarea
@@ -19,6 +20,7 @@ export const Textarea = ({
       rows={rows}
       cols={cols}
       placeholder={placeholder}
+      {...register}
     ></textarea>
   );
 };

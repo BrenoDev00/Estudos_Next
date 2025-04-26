@@ -1,11 +1,34 @@
 "use client";
 
-import { Header, ProtectedPage, Textarea, Button, Task } from "@/components";
+import {
+  Header,
+  ProtectedPage,
+  Textarea,
+  Button,
+  Task,
+  FormFieldErrorMessage,
+} from "@/components";
 import { SessionProvider } from "next-auth/react";
 import { SessionType } from "@/types/session.type";
 import { twMerge } from "tailwind-merge";
+import { useForm } from "react-hook-form";
+import { newTaskSchemaType } from "@/types/schemas";
+import { newTaskSchema } from "@/schemas";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export default function Dashboard({ session }: SessionType) {
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<newTaskSchemaType>({
+    resolver: zodResolver(newTaskSchema),
+  });
+
+  function submitForm(data: newTaskSchemaType) {
+    console.log(data);
+  }
+
   return (
     <SessionProvider session={session}>
       <ProtectedPage>
@@ -28,7 +51,10 @@ export default function Dashboard({ session }: SessionType) {
                 Qual sua tarefa?
               </h1>
 
-              <form className="flex flex-col gap-[16px]">
+              <form
+                onSubmit={handleSubmit(submitForm)}
+                className="flex flex-col gap-[16px]"
+              >
                 <div className="flex flex-col gap-[13px]">
                   <label
                     htmlFor="task-field"
@@ -38,11 +64,15 @@ export default function Dashboard({ session }: SessionType) {
                   </label>
                   <Textarea
                     id={"task-field"}
-                    rows={8}
+                    rows={5}
                     cols={8}
                     placeholder="Digite sua tarefa..."
                     className="resize-none"
+                    register={register("task")}
                   />
+                  {errors.task && (
+                    <FormFieldErrorMessage message={errors.task.message!} />
+                  )}
                 </div>
 
                 <div className="flex gap-[13px] items-center">
@@ -53,6 +83,7 @@ export default function Dashboard({ session }: SessionType) {
                       "w-[18px] h-[18px] cursor-pointer",
                       "max-md:w-[14px] max-md:h-[18px]"
                     )}
+                    {...register("isPublicTask")}
                   />
                   <label
                     htmlFor="public-task"
