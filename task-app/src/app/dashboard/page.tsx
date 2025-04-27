@@ -83,7 +83,7 @@ export default function Dashboard({ session }: SessionType) {
                       "w-[18px] h-[18px] cursor-pointer",
                       "max-md:w-[14px] max-md:h-[18px]"
                     )}
-                    {...register("isPublicTask")}
+                    {...register("isPublic")}
                   />
                   <label
                     htmlFor="public-task"
