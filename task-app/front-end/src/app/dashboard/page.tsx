@@ -15,6 +15,8 @@ import { useForm } from "react-hook-form";
 import { newTaskSchemaType } from "@/types/schemas";
 import { newTaskSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useCreateTask } from "@/hooks";
+import { useSession } from "next-auth/react";
 
 export default function Dashboard({ session }: SessionType) {
   const {
@@ -25,8 +27,17 @@ export default function Dashboard({ session }: SessionType) {
     resolver: zodResolver(newTaskSchema),
   });
 
-  function submitForm(data: newTaskSchemaType) {
-    console.log(data);
+  const { createTaskMutation } = useCreateTask();
+
+  const { data: currentSession } = useSession();
+
+  function handleCreateTask(data: newTaskSchemaType) {
+    const result = {
+      ...data,
+      userEmail: currentSession?.user?.email as string,
+    };
+
+    createTaskMutation.mutate(result);
   }
 
   return (
@@ -52,7 +63,7 @@ export default function Dashboard({ session }: SessionType) {
               </h1>
 
               <form
-                onSubmit={handleSubmit(submitForm)}
+                onSubmit={handleSubmit(handleCreateTask)}
                 className="flex flex-col gap-[16px]"
               >
                 <div className="flex flex-col gap-[13px]">
