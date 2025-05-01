@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { ReactQueryProvider } from "@/providers/react-query-provider";
+import { ReactQueryProvider, AuthSessionProvider } from "@/providers";
 
 export const metadata: Metadata = {
   title: "Home",
@@ -15,7 +15,9 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body>
-        <ReactQueryProvider>{children}</ReactQueryProvider>
+        <AuthSessionProvider>
+          <ReactQueryProvider>{children}</ReactQueryProvider>
+        </AuthSessionProvider>
       </body>
     </html>
   );
