@@ -9,6 +9,8 @@ export default defineConfig([
   },
   {
     files: ["**/*.{js,mjs,cjs}"],
-    languageOptions: { globals: { console: true, process: true } },
+    languageOptions: {
+      globals: { console: true, process: true, "no-try-catch-block": off },
+    },
   },
 ]);
