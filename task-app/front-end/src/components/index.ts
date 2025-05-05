@@ -4,3 +4,6 @@ export * from "./button";
 export * from "./textarea";
 export * from "./task/task";
 export * from "./form-field-error-message";
+export * from "./modals/success-modal";
+export * from "./modals/error-modal";
+export * from "./modals/modal-background";

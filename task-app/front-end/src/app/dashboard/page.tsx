@@ -6,6 +6,7 @@ import {
   Button,
   Task,
   FormFieldErrorMessage,
+  SuccessModal,
 } from "@/components";
 import { twMerge } from "tailwind-merge";
 import { useForm } from "react-hook-form";
@@ -14,25 +15,28 @@ import { newTaskSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCreateTask } from "@/hooks";
 import { useSession } from "next-auth/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { redirect } from "next/navigation";
 
 export default function Dashboard() {
+  const { data: session, status } = useSession();
+
+  useEffect(() => {
+    if (status == "unauthenticated") redirect("/");
+  }, [status]);
+
   const {
     handleSubmit,
     register,
     formState: { errors },
+    reset,
   } = useForm<newTaskSchemaType>({
     resolver: zodResolver(newTaskSchema),
   });
 
   const { createTaskMutation } = useCreateTask();
 
-  const { data: session, status } = useSession();
-
-  useEffect(() => {
-    if (status == "unauthenticated") redirect("/");
-  }, [status]);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState<boolean>(false);
 
   function handleCreateTask(data: newTaskSchemaType) {
     const result = {
@@ -40,11 +44,23 @@ export default function Dashboard() {
       userEmail: session?.user?.email as string,
     };
 
+    reset();
+
     createTaskMutation.mutate(result);
   }
 
+  useEffect(() => {
+    if (createTaskMutation.isSuccess) setIsSuccessModalOpen(true);
+  }, [createTaskMutation.isSuccess]);
+
   return (
     <>
+      <SuccessModal
+        isOpen={isSuccessModalOpen}
+        onClose={() => setIsSuccessModalOpen(false)}
+        message={"Tarefa cadastrada com sucesso!"}
+      />
+
       <Header />
 
       <main className={twMerge("bg-bg-black flex flex-col items-center")}>
