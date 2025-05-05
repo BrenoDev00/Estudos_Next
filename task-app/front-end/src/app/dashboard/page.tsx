@@ -43,8 +43,6 @@ export default function Dashboard() {
     createTaskMutation.mutate(result);
   }
 
-  // if (createTaskMutation.isError) alert("Erro!");
-
   return (
     <>
       <Header />
