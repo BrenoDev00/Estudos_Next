@@ -2,7 +2,6 @@
 
 import {
   Header,
-  ProtectedPage,
   Textarea,
   Button,
   Task,
@@ -15,6 +14,8 @@ import { newTaskSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCreateTask } from "@/hooks";
 import { useSession } from "next-auth/react";
+import { useEffect } from "react";
+import { redirect } from "next/navigation";
 
 export default function Dashboard() {
   const {
@@ -27,12 +28,16 @@ export default function Dashboard() {
 
   const { createTaskMutation } = useCreateTask();
 
-  const { data: currentSession } = useSession();
+  const { data: session, status } = useSession();
+
+  useEffect(() => {
+    if (status == "unauthenticated") redirect("/");
+  }, [status]);
 
   function handleCreateTask(data: newTaskSchemaType) {
     const result = {
       ...data,
-      userEmail: currentSession?.user?.email as string,
+      userEmail: session?.user?.email as string,
     };
 
     createTaskMutation.mutate(result);
@@ -41,7 +46,7 @@ export default function Dashboard() {
   // if (createTaskMutation.isError) alert("Erro!");
 
   return (
-    <ProtectedPage>
+    <>
       <Header />
 
       <main className={twMerge("bg-bg-black flex flex-col items-center")}>
@@ -147,6 +152,6 @@ export default function Dashboard() {
           </div>
         </section>
       </main>
-    </ProtectedPage>
+    </>
   );
 }
