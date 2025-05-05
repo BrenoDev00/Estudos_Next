@@ -1,1 +1,1 @@
-export const taskColumns = ["task", "is_public", "user_email"];
+export const taskColumns = ["task", "isPublic", "userEmail"];
