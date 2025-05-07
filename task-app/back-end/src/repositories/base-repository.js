@@ -1,6 +1,16 @@
 import { pool } from "./data-base.js";
 
 export class BaseRepository {
+  async selectFrom(columns, table) {
+    try {
+      const query = `SELECT ${columns.join(", ")} FROM ${table}`;
+
+      return (await pool.query(query)).rows;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async insertInto(table, columns, values) {
     const poolConection = pool.connect();
 

@@ -1,7 +1,22 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { BASE_API_URL } from "@/utils/base-api-url";
-import { NewTaskInterface } from "@/types/task/task.type";
+import { NewTaskInterface, ListTasksInterface } from "@/types/task/task.type";
+
+export function useGetTasks() {
+  const {
+    data: tasks,
+    isError,
+    isLoading,
+  } = useQuery({
+    queryKey: ["tasks"],
+    queryFn: async (): Promise<ListTasksInterface[]> => {
+      return (await axios.get(`${BASE_API_URL}/tasks`)).data;
+    },
+  });
+
+  return { tasks, isError, isLoading };
+}
 
 export function useCreateTask() {
   const createTaskMutation = useMutation({

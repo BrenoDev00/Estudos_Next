@@ -13,10 +13,11 @@ import { useForm } from "react-hook-form";
 import { newTaskSchemaType } from "@/types/schemas";
 import { newTaskSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useCreateTask } from "@/hooks";
+import { useCreateTask, useGetTasks } from "@/hooks";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { redirect } from "next/navigation";
+import { ListTasksInterface } from "@/types/task/task.type";
 
 export default function Dashboard() {
   const { data: session, status } = useSession();
@@ -35,6 +36,10 @@ export default function Dashboard() {
   });
 
   const { createTaskMutation } = useCreateTask();
+
+  const { tasks, isLoading, isError } = useGetTasks();
+
+  console.log("result", tasks);
 
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState<boolean>(false);
 
@@ -143,26 +148,14 @@ export default function Dashboard() {
           </h2>
 
           <div className="max-w-[1024px] text-bg-black flex flex-col gap-[16px]">
-            <Task
-              variant="newTask"
-              text="Lorem ipsum dolor sit amet consectetur. Elementum pulvinar eget ut in pulvinar enim vestibulum curabitur aenean. Lorem ipsum dolor sit amet consectetur. Elementum pulvinar eget ut in pulvinar enim vestibulum curabitur aenean."
-            />
-            <Task
-              variant="newTask"
-              text="Lorem ipsum dolor sit amet consectetur. Elementum pulvinar eget ut in pulvinar enim vestibulum curabitur aenean. Lorem ipsum dolor sit amet consectetur. Elementum pulvinar eget ut in pulvinar enim vestibulum curabitur aenean. Lorem ipsum dolor sit amet consectetur. Elementum pulvinar eget ut in pulvinar enim vestibulum curabitur aenean."
-            />
-            <Task
-              variant="newTask"
-              text="Lorem ipsum dolor sit amet consectetur. Elementum pulvinar eget ut in pulvinar enim vestibulum curabitur aenean. Lorem ipsum dolor sit amet consectetur. Elementum pulvinar eget ut in pulvinar enim vestibulum curabitur aenean."
-            />
-            <Task
-              variant="newTask"
-              text="Lorem ipsum dolor sit amet consectetur. Elementum pulvinar eget ut in pulvinar enim vestibulum curabitur aenean. Lorem ipsum dolor sit amet consectetur. Elementum pulvinar eget ut in pulvinar enim vestibulum curabitur aenean."
-            />
-            <Task
-              variant="newTask"
-              text="Lorem ipsum dolor sit amet consectetur. Elementum pulvinar eget ut in pulvinar enim vestibulum curabitur aenean. Lorem ipsum dolor sit amet consectetur. Elementum pulvinar eget ut in pulvinar enim vestibulum curabitur aenean."
-            />
+            {tasks?.map((task: ListTasksInterface) => (
+              <Task
+                key={task.taskId}
+                isPublic={task.isPublic}
+                text={task.task}
+                variant="newTask"
+              />
+            ))}
           </div>
         </section>
       </main>

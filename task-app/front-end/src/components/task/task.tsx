@@ -4,30 +4,32 @@ import { FiTrash } from "react-icons/fi";
 import { FaShare } from "react-icons/fa";
 import { twMerge } from "tailwind-merge";
 
-export const Task = ({ variant, text }: TaskProps) => {
+export const Task = ({ variant, text, isPublic }: TaskProps) => {
   if (variant === "newTask") {
     return (
       <TaskContainer className="flex flex-col gap-[11px]">
-        <div className="flex gap-[14px] items-center">
-          <span
-            className={twMerge(
-              "bg-bg-blue py-[5px] px-[11px] rounded-[4px]",
-              "text-white text-[12px]",
-              "max-sm:text-[10px]"
-            )}
-          >
-            Pública
-          </span>
-
-          <div>
-            <FaShare
+        {isPublic && (
+          <div className="flex gap-[14px] items-center">
+            <span
               className={twMerge(
-                "w-[22px] h-[22px] fill-bg-blue cursor-pointer",
-                "max-sm:w-[18px] max-sm:h-[18px]"
+                "bg-bg-blue py-[5px] px-[11px] rounded-[4px]",
+                "text-white text-[12px]",
+                "max-sm:text-[10px]"
               )}
-            />
+            >
+              Pública
+            </span>
+
+            <div>
+              <FaShare
+                className={twMerge(
+                  "w-[22px] h-[22px] fill-bg-blue cursor-pointer",
+                  "max-sm:w-[18px] max-sm:h-[18px]"
+                )}
+              />
+            </div>
           </div>
-        </div>
+        )}
 
         <div className="flex justify-between items-center gap-[30px]">
           <p className={twMerge("max-md:text-[14px] max-sm:text-[12px]")}>
