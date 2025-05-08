@@ -39,8 +39,6 @@ export default function Dashboard() {
 
   const { tasks, isLoading, isError } = useGetTasks();
 
-  console.log("result", tasks);
-
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState<boolean>(false);
 
   function handleCreateTask(data: newTaskSchemaType) {
@@ -151,9 +149,9 @@ export default function Dashboard() {
             {tasks?.map((task: ListTasksInterface) => (
               <Task
                 key={task.taskId}
-                isPublic={task.isPublic}
                 text={task.task}
-                variant="newTask"
+                variant={"newTask"}
+                isPublic={task.isPublic}
               />
             ))}
           </div>
