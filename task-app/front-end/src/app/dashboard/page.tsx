@@ -135,25 +135,27 @@ export default function Dashboard() {
           </div>
         </section>
 
-        <section className="bg-white w-full flex flex-col items-center gap-[30px] pb-[60px] px-[20px]">
+        <section className="bg-white w-full flex flex-col gap-[30px] pb-[60px] px-[20px]">
           <h2
             className={twMerge(
-              "text-bg-black font-bold text-[38px] mt-[60px]",
+              "text-bg-black font-bold text-[38px] text-center mt-[60px]",
               "max-md:text-[30px] max-sm:text-[25px]"
             )}
           >
             Minhas tarefas
           </h2>
 
-          <div className="max-w-[1024px] text-bg-black flex flex-col gap-[16px]">
-            {tasks?.map((task: ListTasksInterface) => (
-              <Task
-                key={task.taskId}
-                text={task.task}
-                variant={"newTask"}
-                isPublic={task.isPublic}
-              />
-            ))}
+          <div className="flex justify-center">
+            <div className="max-w-[1024px] grow text-bg-black flex flex-col gap-[16px]">
+              {tasks?.map((task: ListTasksInterface) => (
+                <Task
+                  key={task.taskId}
+                  text={task.task}
+                  variant={"newTask"}
+                  isPublic={task.isPublic}
+                />
+              ))}
+            </div>
           </div>
         </section>
       </main>
