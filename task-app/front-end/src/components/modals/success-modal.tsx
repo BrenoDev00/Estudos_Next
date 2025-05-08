@@ -30,7 +30,7 @@ export const SuccessModal = ({
         <div className="flex flex-col items-center gap-3">
           <p
             className={twMerge(
-              "text-white text-[18px]",
+              "text-white text-[18px] text-center",
               "max-md:text-[16px] max-sm:text-[14px]"
             )}
           >

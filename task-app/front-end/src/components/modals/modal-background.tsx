@@ -8,6 +8,7 @@ export const ModalBackground = ({
 }: ModalBackgroundProps) => {
   return (
     <dialog
+      open={isOpen}
       className={twMerge(
         isOpen
           ? "opacity-100 pointer-events-auto flex duration-300"

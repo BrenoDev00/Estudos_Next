@@ -7,6 +7,7 @@ import {
   Task,
   FormFieldErrorMessage,
   SuccessModal,
+  ErrorModal,
 } from "@/components";
 import { twMerge } from "tailwind-merge";
 import { useForm } from "react-hook-form";
@@ -41,6 +42,8 @@ export default function Dashboard() {
 
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState<boolean>(false);
 
+  const [isErrorModalOpen, setIsErrorModalOpen] = useState<boolean>(false);
+
   function handleCreateTask(data: newTaskSchemaType) {
     const result = {
       ...data,
@@ -54,7 +57,9 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (createTaskMutation.isSuccess) setIsSuccessModalOpen(true);
-  }, [createTaskMutation.isSuccess]);
+
+    if (createTaskMutation.isError) setIsErrorModalOpen(true);
+  }, [createTaskMutation.isSuccess, createTaskMutation.isError]);
 
   return (
     <>
@@ -62,6 +67,12 @@ export default function Dashboard() {
         isOpen={isSuccessModalOpen}
         onClose={() => setIsSuccessModalOpen(false)}
         message={"Tarefa cadastrada com sucesso!"}
+      />
+
+      <ErrorModal
+        isOpen={isErrorModalOpen}
+        onClose={() => setIsErrorModalOpen(false)}
+        message={"Não foi possível cadastrar a tarefa. Tente novamente."}
       />
 
       <Header />
