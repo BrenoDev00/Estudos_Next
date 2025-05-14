@@ -41,7 +41,7 @@ export const SuccessModal = ({
             variant="primary"
             type="button"
             className={twMerge(
-              "bg-white",
+              "bg-white text-black",
               "max-md:text-[14px] max-sm:text-[12px]"
             )}
             onClick={onClose}

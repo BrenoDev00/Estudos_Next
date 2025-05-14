@@ -23,7 +23,7 @@ export const Header = () => {
             "max-md:text-[28px] max-sm:text-[24px]"
           )}
         >
-          <p className="flex items-center gap">
+          <p className="flex items-center gap text-white">
             Tarefas <span className="text-red font-semibold">+</span>
           </p>
         </Link>

@@ -31,8 +31,13 @@ export const Task = ({ variant, text, isPublic }: TaskProps) => {
           </div>
         )}
 
-        <div className="flex justify-between items-center gap-[30px]">
-          <p className={twMerge("max-md:text-[14px] max-sm:text-[12px]")}>
+        <div className="flex justify-between items-center gap-[15px]">
+          <p
+            className={twMerge(
+              "break-all",
+              "max-md:text-[14px] max-sm:text-[12px]"
+            )}
+          >
             {text}
           </p>
 

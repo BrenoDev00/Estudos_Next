@@ -7,11 +7,6 @@ html {
   scroll-behavior: smooth;
 }
 
-body {
-  background-color: black;
-  color: white;
-}
-
 @theme {
   --color-bg-black: #0f0f0f;
   --color-bg-blue: #3183ff;

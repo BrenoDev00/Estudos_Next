@@ -79,7 +79,9 @@ export default function Dashboard() {
 
       <Header />
 
-      <main className={twMerge("bg-bg-black flex flex-col items-center")}>
+      <main
+        className={twMerge("bg-bg-black flex h-screen flex-col items-center")}
+      >
         <section
           className={twMerge(
             "w-[1024px] px-[128px] pb-[36px]",
@@ -89,7 +91,7 @@ export default function Dashboard() {
           <div>
             <h1
               className={twMerge(
-                "font-bold text-[38px] mt-[32px]",
+                "font-bold text-[38px] text-white mt-[32px]",
                 "max-md:text-[30px] max-sm:text-[25px]"
               )}
             >
@@ -103,7 +105,10 @@ export default function Dashboard() {
               <div className="flex flex-col gap-[13px]">
                 <label
                   htmlFor="task-field"
-                  className={twMerge("max-md:text-[14px] max-sm:text-[12px]")}
+                  className={twMerge(
+                    "text-white",
+                    "max-md:text-[14px] max-sm:text-[12px]"
+                  )}
                 >
                   Informe a tarefa
                 </label>
@@ -133,7 +138,7 @@ export default function Dashboard() {
                 <label
                   htmlFor="public-task"
                   className={twMerge(
-                    "font-medium",
+                    "font-medium text-white",
                     "max-md:text-[14px] max-sm:text-[12px]"
                   )}
                 >
@@ -148,29 +153,35 @@ export default function Dashboard() {
           </div>
         </section>
 
-        <section className="bg-white w-full flex flex-col gap-[30px] pb-[60px] px-[20px]">
-          <h2
+        {(tasks?.length as number) > 0 && (
+          <section
             className={twMerge(
-              "text-bg-black font-bold text-[38px] text-center mt-[60px]",
-              "max-md:text-[30px] max-sm:text-[25px]"
+              "bg-white w-full h-full flex flex-col gap-[30px] pb-[40px] px-[20px]"
             )}
           >
-            Minhas tarefas
-          </h2>
+            <h2
+              className={twMerge(
+                "text-bg-black font-bold text-[38px] text-center mt-[60px]",
+                "max-md:text-[30px] max-sm:text-[25px]"
+              )}
+            >
+              Minhas tarefas
+            </h2>
 
-          <div className="flex justify-center">
-            <div className="max-w-[1024px] grow text-bg-black flex flex-col gap-[16px]">
-              {tasks?.map((task: ListTasksInterface) => (
-                <Task
-                  key={task.taskId}
-                  text={task.task}
-                  variant={"newTask"}
-                  isPublic={task.isPublic}
-                />
-              ))}
+            <div className="flex justify-center pb-[30px]">
+              <div className="max-w-[1024px] grow text-bg-black flex flex-col gap-[16px]">
+                {tasks?.map((task: ListTasksInterface) => (
+                  <Task
+                    key={task.taskId}
+                    text={task.task}
+                    variant={"newTask"}
+                    isPublic={task.isPublic}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
       </main>
     </>
   );
