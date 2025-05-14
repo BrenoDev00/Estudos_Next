@@ -8,14 +8,16 @@ export function useGetTasks() {
     data: tasks,
     isError,
     isLoading,
+    refetch,
   } = useQuery({
     queryKey: ["tasks"],
     queryFn: async (): Promise<ListTasksInterface[]> => {
       return (await axios.get(`${BASE_API_URL}/tasks`)).data;
     },
+    refetchOnWindowFocus: false,
   });
 
-  return { tasks, isError, isLoading };
+  return { tasks, isError, isLoading, refetch };
 }
 
 export function useCreateTask() {

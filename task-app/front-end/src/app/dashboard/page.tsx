@@ -38,7 +38,7 @@ export default function Dashboard() {
 
   const { createTaskMutation } = useCreateTask();
 
-  const { tasks, isLoading, isError } = useGetTasks();
+  const { tasks, isLoading, isError, refetch } = useGetTasks();
 
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState<boolean>(false);
 
@@ -59,7 +59,9 @@ export default function Dashboard() {
     if (createTaskMutation.isSuccess) setIsSuccessModalOpen(true);
 
     if (createTaskMutation.isError) setIsErrorModalOpen(true);
-  }, [createTaskMutation.isSuccess, createTaskMutation.isError]);
+
+    refetch();
+  }, [createTaskMutation.isSuccess, createTaskMutation.isError, refetch]);
 
   return (
     <>
