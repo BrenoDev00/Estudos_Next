@@ -5,7 +5,7 @@ import { taskColumnsToInsert } from "../utils/constants/table-columns.js";
 export const taskRouter = Router();
 
 taskRouter.get("/", async (request, response) => {
-  const result = await new TaskRepository().getTasks();
+  const result = await new TaskRepository().getTasksByMostRecentDate();
 
   return response.status(200).send(result);
 });

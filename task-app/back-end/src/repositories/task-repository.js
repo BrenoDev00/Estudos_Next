@@ -13,6 +13,19 @@ export class TaskRepository extends BaseRepository {
     }
   }
 
+  async getTasksByMostRecentDate() {
+    try {
+      return await super.selectOrderedBy(
+        taskColumnsToGet,
+        "public.task",
+        "createdAt",
+        "DESC"
+      );
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async createTask(values) {
     try {
       return await super.insertInto("public.task", taskColumnsToInsert, values);

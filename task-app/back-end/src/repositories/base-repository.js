@@ -11,6 +11,18 @@ export class BaseRepository {
     }
   }
 
+  async selectOrderedBy(columns, table, conditionColumn, ascOrDesc) {
+    try {
+      const query = `SELECT ${columns.join(
+        ", "
+      )} FROM ${table} ORDER BY ${conditionColumn} ${ascOrDesc}`;
+
+      return (await pool.query(query)).rows;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async insertInto(table, columns, values) {
     const poolConection = pool.connect();
 
