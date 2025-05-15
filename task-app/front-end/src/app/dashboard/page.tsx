@@ -170,14 +170,16 @@ export default function Dashboard() {
 
             <div className="flex justify-center pb-[30px]">
               <div className="max-w-[1024px] grow text-bg-black flex flex-col gap-[16px]">
-                {tasks?.map((task: ListTasksInterface) => (
-                  <Task
-                    key={task.taskId}
-                    text={task.task}
-                    variant={"newTask"}
-                    isPublic={task.isPublic}
-                  />
-                ))}
+                {tasks?.map((task: ListTasksInterface) => {
+                  return (
+                    <Task
+                      key={task.id}
+                      text={task.task}
+                      variant={"newTask"}
+                      isPublic={task.isPublic}
+                    />
+                  );
+                })}
               </div>
             </div>
           </section>

@@ -1,7 +1,7 @@
 import { newTaskSchemaType } from "../schemas";
 
 export interface ListTasksInterface extends newTaskSchemaType {
-  taskId: string;
+  id: string;
   userEmail: string;
 }
 
