@@ -1,11 +1,14 @@
 import { pool } from "./data-base.js";
+import camelCaseKeys from "camelcase-keys";
 
 export class BaseRepository {
   async selectFrom(columns, table) {
     try {
       const query = `SELECT ${columns.join(", ")} FROM ${table}`;
 
-      return (await pool.query(query)).rows;
+      const result = await pool.query(query).rows;
+
+      return camelCaseKeys(result, { deep: true });
     } catch (error) {
       throw error;
     }
@@ -17,7 +20,9 @@ export class BaseRepository {
         ", "
       )} FROM ${table} ORDER BY ${conditionColumn} ${ascOrDesc}`;
 
-      return (await pool.query(query)).rows;
+      const result = (await pool.query(query)).rows;
+
+      return camelCaseKeys(result, { deep: true });
     } catch (error) {
       throw error;
     }

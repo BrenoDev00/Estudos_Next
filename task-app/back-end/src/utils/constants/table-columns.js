@@ -1,3 +1,3 @@
-export const taskColumnsToGet = ["taskId", "task", "isPublic", "userEmail"];
+export const taskColumnsToGet = ["id", "task", "is_public", "user_email"];
 
-export const taskColumnsToInsert = ["task", "isPublic", "userEmail"];
+export const taskColumnsToInsert = ["task", "is_public", "user_email"];

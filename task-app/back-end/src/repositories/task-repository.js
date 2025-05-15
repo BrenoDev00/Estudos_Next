@@ -18,7 +18,7 @@ export class TaskRepository extends BaseRepository {
       return await super.selectOrderedBy(
         taskColumnsToGet,
         "public.task",
-        "createdAt",
+        "created_at",
         "DESC"
       );
     } catch (error) {

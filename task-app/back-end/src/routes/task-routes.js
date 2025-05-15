@@ -1,6 +1,7 @@
 import { TaskRepository } from "../repositories/task-repository.js";
 import { Router } from "express";
 import { taskColumnsToInsert } from "../utils/constants/table-columns.js";
+import snakeCaseKeys from "snakecase-keys";
 
 export const taskRouter = Router();
 
@@ -13,8 +14,10 @@ taskRouter.get("/", async (request, response) => {
 taskRouter.post("/", async (request, response) => {
   const { body } = request;
 
+  const formatedBody = snakeCaseKeys(body);
+
   const values = taskColumnsToInsert.reduce((acc, columnName) => {
-    acc.push(body[columnName]);
+    acc.push(formatedBody[columnName]);
 
     return acc;
   }, []);
