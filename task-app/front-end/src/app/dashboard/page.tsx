@@ -18,7 +18,7 @@ import { useCreateTask, useGetTasks } from "@/hooks";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { redirect } from "next/navigation";
-import { ListTasksInterface } from "@/types/task/task.type";
+import { ListTasksInterface, NewTaskInterface } from "@/types/task/task.type";
 
 export default function Dashboard() {
   const { data: session, status } = useSession();
@@ -40,12 +40,16 @@ export default function Dashboard() {
 
   const { tasks, isLoading, isError, refetch } = useGetTasks();
 
+  const tasksByUserEmail = tasks?.filter(
+    (task: ListTasksInterface) => task?.userEmail === session?.user?.email
+  );
+
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState<boolean>(false);
 
   const [isErrorModalOpen, setIsErrorModalOpen] = useState<boolean>(false);
 
   function handleCreateTask(data: newTaskSchemaType) {
-    const result = {
+    const result: NewTaskInterface = {
       ...data,
       userEmail: session?.user?.email as string,
     };
@@ -60,8 +64,15 @@ export default function Dashboard() {
 
     if (createTaskMutation.isError) setIsErrorModalOpen(true);
 
+    if (isError) setIsErrorModalOpen(true);
+
     refetch();
-  }, [createTaskMutation.isSuccess, createTaskMutation.isError, refetch]);
+  }, [
+    createTaskMutation.isSuccess,
+    createTaskMutation.isError,
+    isError,
+    refetch,
+  ]);
 
   return (
     <>
@@ -75,6 +86,12 @@ export default function Dashboard() {
         isOpen={isErrorModalOpen}
         onClose={() => setIsErrorModalOpen(false)}
         message={"Não foi possível cadastrar a tarefa. Tente novamente."}
+      />
+
+      <ErrorModal
+        isOpen={isErrorModalOpen}
+        onClose={() => setIsErrorModalOpen(false)}
+        message={"Não foi possível listar a(s) tarefa(s). Tente novamente."}
       />
 
       <Header />
@@ -170,7 +187,7 @@ export default function Dashboard() {
 
             <div className="flex justify-center pb-[30px]">
               <div className="max-w-[1024px] grow text-bg-black flex flex-col gap-[16px]">
-                {tasks?.map((task: ListTasksInterface) => {
+                {tasksByUserEmail?.map((task: ListTasksInterface) => {
                   return (
                     <Task
                       key={task.id}

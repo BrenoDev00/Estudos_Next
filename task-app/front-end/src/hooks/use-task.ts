@@ -27,6 +27,7 @@ export function useCreateTask() {
         withCredentials: true,
       });
     },
+    retry: false,
   });
 
   return { createTaskMutation };
