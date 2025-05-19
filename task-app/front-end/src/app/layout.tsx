@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Loading from "./loading";
 import { ReactQueryProvider, AuthSessionProvider } from "@/providers";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Home",
@@ -16,7 +18,9 @@ export default function RootLayout({
     <html lang="pt-br">
       <body>
         <AuthSessionProvider>
-          <ReactQueryProvider>{children}</ReactQueryProvider>
+          <ReactQueryProvider>
+            <Suspense fallback={<Loading />}>{children}</Suspense>
+          </ReactQueryProvider>
         </AuthSessionProvider>
       </body>
     </html>

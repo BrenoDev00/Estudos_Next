@@ -9,6 +9,7 @@ import {
   SuccessModal,
   ErrorModal,
 } from "@/components";
+import Loading from "../loading";
 import { twMerge } from "tailwind-merge";
 import { useForm } from "react-hook-form";
 import { newTaskSchemaType } from "@/types/schemas";
@@ -73,6 +74,8 @@ export default function Dashboard() {
     isError,
     refetch,
   ]);
+
+  if (isLoading || createTaskMutation.isPending) return <Loading />;
 
   return (
     <>
