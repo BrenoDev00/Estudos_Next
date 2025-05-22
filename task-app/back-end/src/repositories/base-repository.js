@@ -2,11 +2,11 @@ import { pool } from "./data-base.js";
 import camelCaseKeys from "camelcase-keys";
 
 export class BaseRepository {
-  async selectFrom(columns, table) {
+  async selectById(columns, table, id) {
     try {
-      const query = `SELECT ${columns.join(", ")} FROM ${table}`;
+      const query = `SELECT ${columns.join(", ")} FROM ${table} WHERE id = $1`;
 
-      const result = await pool.query(query).rows;
+      const result = (await pool.query(query, [id])).rows;
 
       return camelCaseKeys(result, { deep: true });
     } catch (error) {
@@ -48,6 +48,16 @@ export class BaseRepository {
       throw error;
     } finally {
       (await poolConection).release();
+    }
+  }
+
+  async deleteFrom(table, id) {
+    try {
+      const query = `DELETE FROM ${table} WHERE id = $1`;
+
+      return await pool.query(query, [id]);
+    } catch (error) {
+      throw error;
     }
   }
 }

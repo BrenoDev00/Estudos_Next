@@ -22,7 +22,7 @@ export function useGetTasks() {
 
 export function useCreateTask() {
   const createTaskMutation = useMutation({
-    mutationFn: async (data: NewTaskInterface) => {
+    mutationFn: async (data: NewTaskInterface): Promise<void> => {
       await axios.post<NewTaskInterface>(`${BASE_API_URL}/tasks`, data, {
         withCredentials: true,
       });

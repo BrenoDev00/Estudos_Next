@@ -5,9 +5,9 @@ import {
 } from "../utils/constants/table-columns.js";
 
 export class TaskRepository extends BaseRepository {
-  async getTasks() {
+  async getTaskById(taskId) {
     try {
-      return await super.selectFrom(taskColumnsToGet, "public.task");
+      return await super.selectById(taskColumnsToGet, "public.task", taskId);
     } catch (error) {
       throw error;
     }
@@ -29,6 +29,14 @@ export class TaskRepository extends BaseRepository {
   async createTask(values) {
     try {
       return await super.insertInto("public.task", taskColumnsToInsert, values);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async removeTaskById(taskId) {
+    try {
+      return await super.deleteFrom("public.task", taskId);
     } catch (error) {
       throw error;
     }

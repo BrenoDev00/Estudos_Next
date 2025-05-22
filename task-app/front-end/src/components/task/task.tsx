@@ -4,7 +4,13 @@ import { FiTrash } from "react-icons/fi";
 import { FaShare } from "react-icons/fa";
 import { twMerge } from "tailwind-merge";
 
-export const Task = ({ variant, text, isPublic }: TaskProps) => {
+export const Task = ({
+  variant,
+  text,
+  isPublic,
+  id,
+  handleTaskShare,
+}: TaskProps) => {
   if (variant === "newTask") {
     return (
       <TaskContainer className="flex flex-col gap-[11px]">
@@ -26,6 +32,7 @@ export const Task = ({ variant, text, isPublic }: TaskProps) => {
                   "w-[22px] h-[22px] fill-bg-blue cursor-pointer",
                   "max-sm:w-[18px] max-sm:h-[18px]"
                 )}
+                onClick={() => handleTaskShare(id)}
               />
             </div>
           </div>

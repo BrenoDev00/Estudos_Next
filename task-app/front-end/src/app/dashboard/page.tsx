@@ -49,7 +49,7 @@ export default function Dashboard() {
 
   const [isErrorModalOpen, setIsErrorModalOpen] = useState<boolean>(false);
 
-  function handleCreateTask(data: newTaskSchemaType) {
+  function handleCreateTask(data: newTaskSchemaType): void {
     const result: NewTaskInterface = {
       ...data,
       userEmail: session?.user?.email as string,
@@ -58,6 +58,14 @@ export default function Dashboard() {
     reset();
 
     createTaskMutation.mutate(result);
+  }
+
+  function handleTaskShare(taskId: string): void {
+    navigator.clipboard.writeText(
+      `${process.env.NEXT_PUBLIC_URL}/tasks/${taskId}`
+    );
+
+    alert("Tarefa copiada");
   }
 
   useEffect(() => {
@@ -194,9 +202,11 @@ export default function Dashboard() {
                   return (
                     <Task
                       key={task.id}
+                      id={task.id}
                       text={task.task}
                       variant={"newTask"}
                       isPublic={task.isPublic}
+                      handleTaskShare={handleTaskShare}
                     />
                   );
                 })}
