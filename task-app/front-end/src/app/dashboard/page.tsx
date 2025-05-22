@@ -64,8 +64,6 @@ export default function Dashboard() {
     navigator.clipboard.writeText(
       `${process.env.NEXT_PUBLIC_URL}/tasks/${taskId}`
     );
-
-    alert("Tarefa copiada");
   }
 
   useEffect(() => {

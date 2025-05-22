@@ -1,3 +1,6 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import { TaskContainer } from "./task-container";
 import { TaskProps } from "@/types/components";
 import { FiTrash } from "react-icons/fi";
@@ -11,6 +14,14 @@ export const Task = ({
   id,
   handleTaskShare,
 }: TaskProps) => {
+  const [currentTaskId, setCurrentTaskId] = useState<string>("");
+
+  useEffect(() => {
+    setTimeout(() => {
+      setCurrentTaskId("");
+    }, 3000);
+  });
+
   if (variant === "newTask") {
     return (
       <TaskContainer className="flex flex-col gap-[11px]">
@@ -32,9 +43,21 @@ export const Task = ({
                   "w-[22px] h-[22px] fill-bg-blue cursor-pointer",
                   "max-sm:w-[18px] max-sm:h-[18px]"
                 )}
-                onClick={() => handleTaskShare(id)}
+                onClick={() => {
+                  handleTaskShare(id);
+                  setCurrentTaskId(id);
+                }}
               />
             </div>
+
+            <p
+              className={twMerge(
+                "text-[16px] max-sm:text-[12px] opacity-0 transition-opacity transition-discrete duration-600",
+                currentTaskId == id && "opacity-100"
+              )}
+            >
+              Copiada!
+            </p>
           </div>
         )}
 
