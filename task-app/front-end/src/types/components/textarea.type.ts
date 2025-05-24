@@ -7,4 +7,5 @@ export interface TextareaProps {
   className?: string;
   placeholder?: string;
   register: UseFormRegisterReturn;
+  disabled?: boolean;
 }

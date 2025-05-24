@@ -20,6 +20,7 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { redirect } from "next/navigation";
 import { ListTasksInterface, NewTaskInterface } from "@/types/task/task.type";
+import { TaskModal } from "./components";
 
 export default function Dashboard() {
   const { data: session, status } = useSession();
@@ -102,6 +103,8 @@ export default function Dashboard() {
         onClose={() => setIsErrorModalOpen(false)}
         message={"Não foi possível listar a(s) tarefa(s). Tente novamente."}
       />
+
+      <TaskModal isOpen={true} modalMode="editTask" />
 
       <Header />
 
