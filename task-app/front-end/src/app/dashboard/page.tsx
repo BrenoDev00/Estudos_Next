@@ -50,7 +50,17 @@ export default function Dashboard() {
 
   const [isErrorModalOpen, setIsErrorModalOpen] = useState<boolean>(false);
 
-  function handleCreateTask(data: newTaskSchemaType): void {
+  const [isTaskModalOpen, setIsTaskModalOpen] = useState<boolean>(false);
+
+  const [selectedTask, setSelectedTask] = useState<ListTasksInterface | null>(
+    null
+  );
+
+  const [modalMode, setModalMode] = useState<"deleteTask" | "editTask" | null>(
+    null
+  );
+
+  function handleTaskCreate(data: newTaskSchemaType): void {
     const result: NewTaskInterface = {
       ...data,
       userEmail: session?.user?.email as string,
@@ -65,6 +75,14 @@ export default function Dashboard() {
     navigator.clipboard.writeText(
       `${process.env.NEXT_PUBLIC_URL}/tasks/${taskId}`
     );
+  }
+
+  function handleTaskRemove(taskValues: ListTasksInterface) {
+    setIsTaskModalOpen(true);
+
+    setSelectedTask(taskValues);
+
+    setModalMode("deleteTask");
   }
 
   useEffect(() => {
@@ -104,7 +122,12 @@ export default function Dashboard() {
         message={"Não foi possível listar a(s) tarefa(s). Tente novamente."}
       />
 
-      <TaskModal isOpen={true} modalMode="editTask" />
+      <TaskModal
+        isOpen={isTaskModalOpen}
+        onClose={() => setIsTaskModalOpen(false)}
+        modalMode={modalMode}
+        taskValues={selectedTask}
+      />
 
       <Header />
 
@@ -128,7 +151,7 @@ export default function Dashboard() {
             </h1>
 
             <form
-              onSubmit={handleSubmit(handleCreateTask)}
+              onSubmit={handleSubmit(handleTaskCreate)}
               className="flex flex-col gap-[16px]"
             >
               <div className="flex flex-col gap-[13px]">
@@ -203,11 +226,12 @@ export default function Dashboard() {
                   return (
                     <Task
                       key={task.id}
-                      id={task.id}
                       text={task.task}
-                      variant={"newTask"}
                       isPublic={task.isPublic}
+                      taskValues={task}
+                      variant={"newTask"}
                       handleTaskShare={handleTaskShare}
+                      handleTaskRemove={handleTaskRemove}
                     />
                   );
                 })}

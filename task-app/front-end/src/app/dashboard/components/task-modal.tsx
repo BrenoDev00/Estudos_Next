@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import {
   ModalBackground,
@@ -11,17 +11,27 @@ import {
 import { twMerge } from "tailwind-merge";
 import { TaskModalProps } from "@/types/components";
 
-export const TaskModal = ({ modalMode, isOpen }: TaskModalProps) => {
+export const TaskModal = ({
+  modalMode,
+  isOpen,
+  taskValues,
+  onClose,
+}: TaskModalProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm();
 
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(true);
+
+  useEffect(() => {
+    setValue("isPublic", taskValues?.isPublic);
+    setValue("task", taskValues?.task);
+  }, [setValue, taskValues?.isPublic, taskValues?.task]);
 
   return (
-    <ModalBackground isOpen={isModalOpen}>
+    <ModalBackground isOpen={isOpen}>
       <article
         className={twMerge(
           "bg-black px-[50px] py-[30px] rounded-[8px]",
@@ -89,13 +99,13 @@ export const TaskModal = ({ modalMode, isOpen }: TaskModalProps) => {
             )}
           >
             <Button
+              onClick={onClose}
               type="button"
               variant="secondary"
               className={twMerge(
                 "grow bg-white text-bg-blue",
                 "border border-bg-blue border-[2px] hover:text-white"
               )}
-              onClick={() => setIsModalOpen(!isModalOpen)}
             >
               Cancelar
             </Button>

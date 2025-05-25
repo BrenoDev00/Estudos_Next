@@ -11,8 +11,9 @@ export const Task = ({
   variant,
   text,
   isPublic,
-  id,
+  taskValues,
   handleTaskShare,
+  handleTaskRemove,
 }: TaskProps) => {
   const [currentTaskId, setCurrentTaskId] = useState<string>("");
 
@@ -44,8 +45,8 @@ export const Task = ({
                   "max-sm:w-[18px] max-sm:h-[18px]"
                 )}
                 onClick={() => {
-                  handleTaskShare(id);
-                  setCurrentTaskId(id);
+                  handleTaskShare(taskValues?.id);
+                  setCurrentTaskId(taskValues?.id);
                 }}
               />
             </div>
@@ -53,7 +54,7 @@ export const Task = ({
             <p
               className={twMerge(
                 "text-[16px] max-sm:text-[12px] opacity-0 transition-opacity transition-discrete duration-600",
-                currentTaskId == id && "opacity-100"
+                currentTaskId == taskValues?.id && "opacity-100"
               )}
             >
               Copiada!
@@ -73,6 +74,7 @@ export const Task = ({
 
           <div>
             <FiTrash
+              onClick={() => handleTaskRemove(taskValues)}
               className={twMerge(
                 "stroke-red w-[25px] h-[25px] cursor-pointer",
                 "max-sm:h-[20px] max-sm:w-[20px]"

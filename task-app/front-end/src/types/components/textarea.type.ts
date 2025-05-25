@@ -4,8 +4,8 @@ export interface TextareaProps {
   id: string;
   rows: number;
   cols: number;
+  register: UseFormRegisterReturn;
   className?: string;
   placeholder?: string;
-  register: UseFormRegisterReturn;
   disabled?: boolean;
 }
