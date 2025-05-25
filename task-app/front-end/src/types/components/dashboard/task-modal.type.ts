@@ -5,4 +5,6 @@ export interface TaskModalProps {
   modalMode: "deleteTask" | "editTask" | null;
   taskValues: ListTasksInterface | null;
   onClose: () => void;
+  closeModalAfterSubmission: () => void;
+  refetch: () => void;
 }

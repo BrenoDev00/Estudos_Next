@@ -77,7 +77,7 @@ export default function Dashboard() {
     );
   }
 
-  function handleTaskRemove(taskValues: ListTasksInterface) {
+  function handleOpenTaskDeleteModal(taskValues: ListTasksInterface): void {
     setIsTaskModalOpen(true);
 
     setSelectedTask(taskValues);
@@ -127,6 +127,10 @@ export default function Dashboard() {
         onClose={() => setIsTaskModalOpen(false)}
         modalMode={modalMode}
         taskValues={selectedTask}
+        refetch={refetch}
+        closeModalAfterSubmission={() => {
+          setIsTaskModalOpen(false);
+        }}
       />
 
       <Header />
@@ -205,7 +209,7 @@ export default function Dashboard() {
           </div>
         </section>
 
-        {(tasks?.length as number) > 0 && (
+        {(tasksByUserEmail?.length as number) > 0 && (
           <section
             className={twMerge(
               "bg-white w-full h-full flex flex-col gap-[30px] pb-[40px] px-[20px]"
@@ -231,7 +235,7 @@ export default function Dashboard() {
                       taskValues={task}
                       variant={"newTask"}
                       handleTaskShare={handleTaskShare}
-                      handleTaskRemove={handleTaskRemove}
+                      handleTaskRemove={handleOpenTaskDeleteModal}
                     />
                   );
                 })}

@@ -12,7 +12,8 @@ export function useGetTasks() {
   } = useQuery({
     queryKey: ["tasks"],
     queryFn: async (): Promise<ListTasksInterface[]> => {
-      return (await axios.get(`${BASE_API_URL}/tasks`)).data;
+      return (await axios.get<ListTasksInterface[]>(`${BASE_API_URL}/tasks`))
+        .data;
     },
     refetchOnWindowFocus: false,
   });
@@ -31,4 +32,17 @@ export function useCreateTask() {
   });
 
   return { createTaskMutation };
+}
+
+export function useRemoveTask() {
+  const removeTaskMutation = useMutation({
+    mutationFn: async (taskId: string): Promise<void> => {
+      await axios.delete(`${BASE_API_URL}/tasks/${taskId}`, {
+        withCredentials: true,
+      });
+    },
+    retry: false,
+  });
+
+  return { removeTaskMutation };
 }
