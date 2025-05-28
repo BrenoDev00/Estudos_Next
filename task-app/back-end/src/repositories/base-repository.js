@@ -51,7 +51,27 @@ export class BaseRepository {
     }
   }
 
+  async updateById(table, columns, values, id) {
+    const poolConection = pool.connect();
+    try {
+      const setColumns = columns.map(
+        (column, index) => `${column} = $${index + 1}`
+      );
 
+      const query = `UPDATE ${table} SET ${setColumns.join(",")} WHERE id = $${
+        columns.length + 1
+      }`;
+
+      (await poolConection).query("BEGIN TRANSACTION");
+      (await poolConection).query(query, [...values, id]);
+      (await poolConection).query("COMMIT");
+    } catch (error) {
+      (await poolConection).query("ROLLBACK");
+      throw error;
+    } finally {
+      (await poolConection).release();
+    }
+  }
 
   async deleteById(table, id) {
     try {

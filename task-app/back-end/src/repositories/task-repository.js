@@ -2,6 +2,7 @@ import { BaseRepository } from "./base-repository.js";
 import {
   taskColumnsToInsert,
   taskColumnsToGet,
+  taskColumnsToUpdate,
 } from "../utils/constants/table-columns.js";
 
 export class TaskRepository extends BaseRepository {
@@ -29,6 +30,19 @@ export class TaskRepository extends BaseRepository {
   async createTask(values) {
     try {
       return await super.insertInto("public.task", taskColumnsToInsert, values);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async udpateTaskById(values, id) {
+    try {
+      return await super.updateById(
+        "public.task",
+        taskColumnsToUpdate,
+        values,
+        id
+      );
     } catch (error) {
       throw error;
     }

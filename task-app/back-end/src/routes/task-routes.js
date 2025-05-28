@@ -11,6 +11,10 @@ taskRouter.post("/", async (request, response) => {
   return await new TaskController().createTask(request, response);
 });
 
+taskRouter.put("/:id", async (request, response) => {
+  return await new TaskController().updateTaskById(request, response);
+});
+
 taskRouter.delete("/:id", async (request, response) => {
   return await new TaskController().removeTaskById(request, response);
 });

@@ -1,7 +1,10 @@
 import { TaskRepository } from "../repositories/task-repository.js";
-import { taskSchema } from "../schemas/task-schema.js";
+import { taskSchema, updateTaskSchema } from "../schemas/task-schema.js";
 import { uuidSchema } from "../schemas/uuid-schema.js";
-import { taskColumnsToInsert } from "../utils/constants/table-columns.js";
+import {
+  taskColumnsToInsert,
+  taskColumnsToUpdate,
+} from "../utils/constants/table-columns.js";
 import snakeCaseKeys from "snakecase-keys";
 
 export class TaskController {
@@ -19,10 +22,10 @@ export class TaskController {
     if (!bodyValidation.success)
       return response.status(400).send(bodyValidation.error.errors);
 
-    const formatedBody = snakeCaseKeys(body);
+    const formattedBody = snakeCaseKeys(body);
 
     const values = taskColumnsToInsert.reduce((acc, columnName) => {
-      acc.push(formatedBody[columnName]);
+      acc.push(formattedBody[columnName]);
 
       return acc;
     }, []);
@@ -32,6 +35,36 @@ export class TaskController {
     return response
       .status(201)
       .send({ message: "Tarefa adicionada com sucesso!" });
+  }
+
+  async updateTaskById(request, response) {
+    const { id } = request.params;
+    const { body } = request;
+
+    const idValidation = uuidSchema.safeParse(id);
+
+    if (!idValidation.success)
+      return response.status(400).send(idValidation.error.errors);
+
+    const searchedTask = await new TaskRepository().getTaskById(id);
+
+    if (!searchedTask.length)
+      return response.status(404).send({ message: "Tarefa não encontrada." });
+
+    const bodyValidation = updateTaskSchema.safeParse(body);
+
+    if (!bodyValidation.success)
+      return response.status(400).send(bodyValidation.error.errors);
+
+    const formattedBody = snakeCaseKeys(body);
+
+    const values = taskColumnsToUpdate.map((column) => formattedBody[column]);
+
+    await new TaskRepository().udpateTaskById(values, id);
+
+    return response
+      .status(200)
+      .send({ message: "Tarefa atualizada com sucesso!" });
   }
 
   async removeTaskById(request, response) {
