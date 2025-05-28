@@ -20,9 +20,9 @@ app.use(express.json());
 app.use("/tasks", taskRouter);
 
 function bootstrap() {
-  const port = 3001;
+  const port = process.env.PORT || 3001;
 
-  app.listen(3001, () => console.log("API rodando na porta", port));
+  app.listen(port, () => console.log("API rodando na porta", port));
 }
 
 bootstrap();
