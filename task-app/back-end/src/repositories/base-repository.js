@@ -51,7 +51,9 @@ export class BaseRepository {
     }
   }
 
-  async deleteFrom(table, id) {
+
+
+  async deleteById(table, id) {
     try {
       const query = `DELETE FROM ${table} WHERE id = $1`;
 

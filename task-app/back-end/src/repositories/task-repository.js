@@ -36,7 +36,7 @@ export class TaskRepository extends BaseRepository {
 
   async removeTaskById(taskId) {
     try {
-      return await super.deleteFrom("public.task", taskId);
+      return await super.deleteById("public.task", taskId);
     } catch (error) {
       throw error;
     }
