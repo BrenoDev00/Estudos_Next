@@ -169,7 +169,12 @@ export const TaskModal = ({
               )}
             >
               <Button
-                onClick={onClose}
+                onClick={() => {
+                  onClose();
+
+                  setValue("task", taskValues?.task as string);
+                  setValue("isPublic", taskValues?.isPublic as boolean);
+                }}
                 type="button"
                 variant="secondary"
                 className={twMerge(

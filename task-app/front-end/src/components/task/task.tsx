@@ -14,7 +14,7 @@ export const Task = ({
   taskValues,
   handleTaskShare,
   handleTaskDelete,
-  handleTaskUpdate
+  handleTaskUpdate,
 }: TaskProps) => {
   const [currentTaskId, setCurrentTaskId] = useState<string>("");
 
@@ -73,14 +73,15 @@ export const Task = ({
             {text}
           </p>
 
-          <div className="flex gap-4">
+          <div
+            className={twMerge("flex gap-4 items-center", "max-sm:flex-col")}
+          >
             <FaRegEdit
+              onClick={() => handleTaskUpdate(taskValues)}
               className={twMerge(
                 "fill-bg-blue  stroke-red w-[25px] h-[25px] cursor-pointer",
                 "max-sm:h-[20px] max-sm:w-[20px]"
               )}
-
-              onClick={() => handleTaskUpdate(taskValues)}
             />
 
             <FiTrash
