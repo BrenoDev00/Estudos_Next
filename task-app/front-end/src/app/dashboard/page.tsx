@@ -40,7 +40,7 @@ export default function Dashboard() {
 
   const { createTaskMutation } = useCreateTask();
 
-  const { tasks, isLoading, isError, refetch } = useGetTasks();
+  const { tasks, taskListLoading, taskListError, refetch } = useGetTasks();
 
   const tasksByUserEmail = tasks?.filter(
     (task: ListTasksInterface) => task?.userEmail === session?.user?.email
@@ -96,38 +96,30 @@ export default function Dashboard() {
   useEffect(() => {
     if (createTaskMutation.isSuccess) setIsSuccessModalOpen(true);
 
-    if (createTaskMutation.isError) setIsErrorModalOpen(true);
-
-    if (isError) setIsErrorModalOpen(true);
+    if (createTaskMutation.isError || taskListError) setIsErrorModalOpen(true);
 
     refetch();
   }, [
     createTaskMutation.isSuccess,
     createTaskMutation.isError,
-    isError,
+    taskListError,
     refetch,
   ]);
 
-  if (isLoading || createTaskMutation.isPending) return <Loading />;
+  if (taskListLoading || createTaskMutation.isPending) return <Loading />;
 
   return (
     <>
       <SuccessModal
         isOpen={isSuccessModalOpen}
         onClose={() => setIsSuccessModalOpen(false)}
-        message={"Tarefa cadastrada com sucesso!"}
+        message={"Ação realizada com sucesso!"}
       />
 
       <ErrorModal
         isOpen={isErrorModalOpen}
         onClose={() => setIsErrorModalOpen(false)}
-        message={"Não foi possível cadastrar a tarefa. Tente novamente."}
-      />
-
-      <ErrorModal
-        isOpen={isErrorModalOpen}
-        onClose={() => setIsErrorModalOpen(false)}
-        message={"Não foi possível listar a(s) tarefa(s). Tente novamente."}
+        message={"Não foi possível realizar a ação. Tente novamente."}
       />
 
       <TaskModal

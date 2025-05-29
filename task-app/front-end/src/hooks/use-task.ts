@@ -10,8 +10,8 @@ import {
 export function useGetTasks() {
   const {
     data: tasks,
-    isError,
-    isLoading,
+    isError: taskListError,
+    isLoading: taskListLoading,
     refetch,
   } = useQuery({
     queryKey: ["tasks"],
@@ -22,7 +22,7 @@ export function useGetTasks() {
     refetchOnWindowFocus: false,
   });
 
-  return { tasks, isError, isLoading, refetch };
+  return { tasks, taskListError, taskListLoading, refetch };
 }
 
 export function useCreateTask() {
