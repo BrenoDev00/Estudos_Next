@@ -35,13 +35,13 @@ export class TaskRepository extends BaseRepository {
     }
   }
 
-  async udpateTaskById(values, id) {
+  async udpateTaskById(values, taskId) {
     try {
       return await super.updateById(
         "public.task",
         taskColumnsToUpdate,
         values,
-        id
+        taskId
       );
     } catch (error) {
       throw error;
