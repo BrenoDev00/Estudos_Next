@@ -6,5 +6,5 @@ export interface TaskProps {
   isPublic: boolean;
   taskValues: ListTasksInterface;
   handleTaskShare: (taksId: string) => void;
-  handleTaskRemove: (taskValues: ListTasksInterface) => void;
+  handleTaskDelete: (taskValues: ListTasksInterface) => void;
 }

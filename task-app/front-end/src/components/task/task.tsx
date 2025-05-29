@@ -13,7 +13,7 @@ export const Task = ({
   isPublic,
   taskValues,
   handleTaskShare,
-  handleTaskRemove,
+  handleTaskDelete,
 }: TaskProps) => {
   const [currentTaskId, setCurrentTaskId] = useState<string>("");
 
@@ -74,7 +74,7 @@ export const Task = ({
 
           <div>
             <FiTrash
-              onClick={() => handleTaskRemove(taskValues)}
+              onClick={() => handleTaskDelete(taskValues)}
               className={twMerge(
                 "stroke-red w-[25px] h-[25px] cursor-pointer",
                 "max-sm:h-[20px] max-sm:w-[20px]"

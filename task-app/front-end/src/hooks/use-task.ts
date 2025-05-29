@@ -34,8 +34,8 @@ export function useCreateTask() {
   return { createTaskMutation };
 }
 
-export function useRemoveTask() {
-  const removeTaskMutation = useMutation({
+export function useDeleteTask() {
+  const deleteTaskMutation = useMutation({
     mutationFn: async (taskId: string): Promise<void> => {
       await axios.delete(`${BASE_API_URL}/tasks/${taskId}`, {
         withCredentials: true,
@@ -44,5 +44,5 @@ export function useRemoveTask() {
     retry: false,
   });
 
-  return { removeTaskMutation };
+  return { deleteTaskMutation };
 }

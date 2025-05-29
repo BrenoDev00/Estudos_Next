@@ -235,7 +235,7 @@ export default function Dashboard() {
                       taskValues={task}
                       variant={"newTask"}
                       handleTaskShare={handleTaskShare}
-                      handleTaskRemove={handleOpenTaskDeleteModal}
+                      handleTaskDelete={handleOpenTaskDeleteModal}
                     />
                   );
                 })}

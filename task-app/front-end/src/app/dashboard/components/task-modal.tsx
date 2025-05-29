@@ -13,7 +13,7 @@ import {
 import Loading from "@/app/loading";
 import { twMerge } from "tailwind-merge";
 import { TaskModalProps } from "@/types/components";
-import { useRemoveTask } from "@/hooks";
+import { useDeleteTask } from "@/hooks";
 
 export const TaskModal = ({
   modalMode,
@@ -38,21 +38,21 @@ export const TaskModal = ({
     setValue("task", taskValues?.task);
   }, [setValue, taskValues?.isPublic, taskValues?.task]);
 
-  const { removeTaskMutation } = useRemoveTask();
+  const { deleteTaskMutation } = useDeleteTask();
 
   function handleTaskRemove(): void {
-    removeTaskMutation.mutate(taskValues?.id as string);
+    deleteTaskMutation.mutate(taskValues?.id as string);
   }
 
   useEffect(() => {
-    if (removeTaskMutation.isSuccess) setIsSuccessModalOpen(true);
+    if (deleteTaskMutation.isSuccess) setIsSuccessModalOpen(true);
 
-    if (removeTaskMutation.isError) setIsErrorModalOpen(true);
+    if (deleteTaskMutation.isError) setIsErrorModalOpen(true);
 
     refetch();
-  }, [refetch, removeTaskMutation.isSuccess, removeTaskMutation.isError]);
+  }, [refetch, deleteTaskMutation.isSuccess, deleteTaskMutation.isError]);
 
-  if (removeTaskMutation.isPending) return <Loading />;
+  if (deleteTaskMutation.isPending) return <Loading />;
 
   return (
     <>
