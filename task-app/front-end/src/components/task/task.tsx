@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { TaskContainer } from "./task-container";
 import { TaskProps } from "@/types/components";
 import { FiTrash } from "react-icons/fi";
-import { FaShare } from "react-icons/fa";
+import { FaShare, FaRegEdit } from "react-icons/fa";
 import { twMerge } from "tailwind-merge";
 
 export const Task = ({
@@ -14,6 +14,7 @@ export const Task = ({
   taskValues,
   handleTaskShare,
   handleTaskDelete,
+  handleTaskUpdate
 }: TaskProps) => {
   const [currentTaskId, setCurrentTaskId] = useState<string>("");
 
@@ -72,7 +73,16 @@ export const Task = ({
             {text}
           </p>
 
-          <div>
+          <div className="flex gap-4">
+            <FaRegEdit
+              className={twMerge(
+                "fill-bg-blue  stroke-red w-[25px] h-[25px] cursor-pointer",
+                "max-sm:h-[20px] max-sm:w-[20px]"
+              )}
+
+              onClick={() => handleTaskUpdate(taskValues)}
+            />
+
             <FiTrash
               onClick={() => handleTaskDelete(taskValues)}
               className={twMerge(

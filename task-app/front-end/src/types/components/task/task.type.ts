@@ -7,4 +7,5 @@ export interface TaskProps {
   taskValues: ListTasksInterface;
   handleTaskShare: (taksId: string) => void;
   handleTaskDelete: (taskValues: ListTasksInterface) => void;
+  handleTaskUpdate: (taskValues: ListTasksInterface) => void;
 }

@@ -12,8 +12,8 @@ import {
 import Loading from "../loading";
 import { twMerge } from "tailwind-merge";
 import { useForm } from "react-hook-form";
-import { newTaskSchemaType } from "@/types/schemas";
-import { newTaskSchema } from "@/schemas";
+import { TaskSchemaType } from "@/types/schemas";
+import { taskSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCreateTask, useGetTasks } from "@/hooks";
 import { useSession } from "next-auth/react";
@@ -34,8 +34,8 @@ export default function Dashboard() {
     register,
     formState: { errors },
     reset,
-  } = useForm<newTaskSchemaType>({
-    resolver: zodResolver(newTaskSchema),
+  } = useForm<TaskSchemaType>({
+    resolver: zodResolver(taskSchema),
   });
 
   const { createTaskMutation } = useCreateTask();
@@ -56,11 +56,11 @@ export default function Dashboard() {
     null
   );
 
-  const [modalMode, setModalMode] = useState<"deleteTask" | "editTask" | null>(
-    null
-  );
+  const [modalMode, setModalMode] = useState<
+    "deleteTask" | "updateTask" | null
+  >(null);
 
-  function handleTaskCreate(data: newTaskSchemaType): void {
+  function handleTaskCreate(data: TaskSchemaType): void {
     const result: NewTaskInterface = {
       ...data,
       userEmail: session?.user?.email as string,
@@ -83,6 +83,14 @@ export default function Dashboard() {
     setSelectedTask(taskValues);
 
     setModalMode("deleteTask");
+  }
+
+  function handleOpenTaskUpdateModal(taskValues: ListTasksInterface): void {
+    setIsTaskModalOpen(true);
+
+    setSelectedTask(taskValues);
+
+    setModalMode("updateTask");
   }
 
   useEffect(() => {
@@ -236,6 +244,7 @@ export default function Dashboard() {
                       variant={"newTask"}
                       handleTaskShare={handleTaskShare}
                       handleTaskDelete={handleOpenTaskDeleteModal}
+                      handleTaskUpdate={handleOpenTaskUpdateModal}
                     />
                   );
                 })}

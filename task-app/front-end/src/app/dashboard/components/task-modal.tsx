@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, FormEvent } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   ModalBackground,
@@ -10,10 +10,14 @@ import {
   SuccessModal,
   ErrorModal,
 } from "@/components";
+import { UpdateTaskInterface } from "@/types/task/task.type";
 import Loading from "@/app/loading";
 import { twMerge } from "tailwind-merge";
 import { TaskModalProps } from "@/types/components";
-import { useDeleteTask } from "@/hooks";
+import { useDeleteTask, useUpdateTask } from "@/hooks";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { taskSchema } from "@/schemas";
+import { TaskSchemaType } from "@/types/schemas";
 
 export const TaskModal = ({
   modalMode,
@@ -27,43 +31,69 @@ export const TaskModal = ({
     register,
     formState: { errors },
     setValue,
-  } = useForm();
+    handleSubmit,
+  } = useForm({
+    resolver: zodResolver(taskSchema),
+  });
 
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState<boolean>(false);
 
   const [isErrorModalOpen, setIsErrorModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    setValue("isPublic", taskValues?.isPublic);
-    setValue("task", taskValues?.task);
+    setValue("isPublic", taskValues?.isPublic as boolean);
+    setValue("task", taskValues?.task as string);
   }, [setValue, taskValues?.isPublic, taskValues?.task]);
 
   const { deleteTaskMutation } = useDeleteTask();
 
-  function handleTaskRemove(): void {
-    deleteTaskMutation.mutate(taskValues?.id as string);
+  const { updateTaskMutation } = useUpdateTask();
+
+  function handleFormSubmit(formValues: TaskSchemaType) {
+    if (modalMode == "deleteTask")
+      deleteTaskMutation.mutate(taskValues?.id as string);
+
+    const data: UpdateTaskInterface = {
+      id: taskValues?.id as string,
+      task: formValues?.task as string,
+      isPublic: formValues?.isPublic as boolean,
+    };
+
+    if (modalMode == "updateTask") updateTaskMutation.mutate(data);
+
+    closeModalAfterSubmission();
   }
 
   useEffect(() => {
-    if (deleteTaskMutation.isSuccess) setIsSuccessModalOpen(true);
+    if (deleteTaskMutation.isSuccess || updateTaskMutation.isSuccess) {
+      setIsSuccessModalOpen(true);
 
-    if (deleteTaskMutation.isError) setIsErrorModalOpen(true);
+      refetch();
+    }
 
-    refetch();
-  }, [refetch, deleteTaskMutation.isSuccess, deleteTaskMutation.isError]);
+    if (deleteTaskMutation.isError || updateTaskMutation.isError)
+      setIsErrorModalOpen(true);
+  }, [
+    refetch,
+    deleteTaskMutation.isSuccess,
+    deleteTaskMutation.isError,
+    updateTaskMutation.isSuccess,
+    updateTaskMutation.isError,
+  ]);
 
-  if (deleteTaskMutation.isPending) return <Loading />;
+  if (deleteTaskMutation.isPending || updateTaskMutation.isPending)
+    return <Loading />;
 
   return (
     <>
       <SuccessModal
-        message="Tarefa removida com sucesso!"
+        message="Ação realizada com sucesso!"
         isOpen={isSuccessModalOpen}
         onClose={() => setIsSuccessModalOpen(false)}
       />
 
       <ErrorModal
-        message="Não foi possível excluir a tarefa. Tente novamente."
+        message="Não foi possível realizar a ação. Tente novamente."
         isOpen={isErrorModalOpen}
         onClose={() => setIsErrorModalOpen(false)}
       />
@@ -76,9 +106,7 @@ export const TaskModal = ({
           )}
         >
           <form
-            onSubmit={(event: FormEvent<HTMLFormElement>) => {
-              event.preventDefault();
-            }}
+            onSubmit={handleSubmit(handleFormSubmit)}
             className="flex flex-col gap-[16px]"
           >
             <div className="flex flex-col gap-[13px]">
@@ -122,6 +150,7 @@ export const TaskModal = ({
                 disabled={modalMode == "deleteTask"}
                 {...register("isPublic")}
               />
+
               <label
                 htmlFor="public-task"
                 className={twMerge(
@@ -151,15 +180,7 @@ export const TaskModal = ({
                 Cancelar
               </Button>
 
-              <Button
-                type="submit"
-                variant="secondary"
-                className="grow"
-                onClick={() => {
-                  if (modalMode == "deleteTask") handleTaskRemove();
-                  closeModalAfterSubmission();
-                }}
-              >
+              <Button type="submit" variant="secondary" className="grow">
                 {modalMode == "deleteTask" ? "Excluir" : "Editar"} tarefa
               </Button>
             </div>

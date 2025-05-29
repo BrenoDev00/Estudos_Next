@@ -1,1 +1,1 @@
-export * from "./new-task-schema.type";
+export * from "./task-schema.type";

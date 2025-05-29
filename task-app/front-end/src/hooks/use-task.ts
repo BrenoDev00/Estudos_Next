@@ -1,7 +1,11 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { BASE_API_URL } from "@/utils/base-api-url";
-import { NewTaskInterface, ListTasksInterface } from "@/types/task/task.type";
+import {
+  NewTaskInterface,
+  ListTasksInterface,
+  UpdateTaskInterface,
+} from "@/types/task/task.type";
 
 export function useGetTasks() {
   const {
@@ -32,6 +36,30 @@ export function useCreateTask() {
   });
 
   return { createTaskMutation };
+}
+
+export function useUpdateTask() {
+  const updateTaskMutation = useMutation({
+    mutationFn: async (data: UpdateTaskInterface): Promise<void> => {
+      const { id: taskId, task, isPublic } = data;
+
+      const taskValues: Omit<UpdateTaskInterface, "id"> = {
+        task,
+        isPublic,
+      };
+
+      await axios.put<UpdateTaskInterface>(
+        `${BASE_API_URL}/tasks/${taskId}`,
+        taskValues,
+        {
+          withCredentials: true,
+        }
+      );
+    },
+    retry: false,
+  });
+
+  return { updateTaskMutation };
 }
 
 export function useDeleteTask() {

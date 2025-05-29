@@ -1,6 +1,6 @@
 import z from "zod";
 
-export const newTaskSchema = z.object({
+export const taskSchema = z.object({
   task: z
     .string()
     .min(3, "Informe pelo menos 3 caracteres")
