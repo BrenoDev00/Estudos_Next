@@ -67,7 +67,7 @@ export class TaskController {
       .send({ message: "Tarefa atualizada com sucesso!" });
   }
 
-  async removeTaskById(request, response) {
+  async deleteTaskById(request, response) {
     const { id } = request.params;
 
     const idValidation = uuidSchema.safeParse(id);
@@ -80,7 +80,7 @@ export class TaskController {
     if (!searchedId.length)
       return response.status(404).send({ message: "Tarefa não encontrada." });
 
-    await new TaskRepository().removeTaskById(id);
+    await new TaskRepository().deleteTaskById(id);
 
     return response
       .status(200)

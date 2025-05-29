@@ -16,5 +16,5 @@ taskRouter.put("/:id", async (request, response) => {
 });
 
 taskRouter.delete("/:id", async (request, response) => {
-  return await new TaskController().removeTaskById(request, response);
+  return await new TaskController().deleteTaskById(request, response);
 });
