@@ -22,8 +22,6 @@ export default function Contacts() {
 
   return (
     <>
-      <h1>Página de contatos</h1>
-
       {dollarRateData ? (
         <>
           <h2 className="mt-4 text-center text-xl">

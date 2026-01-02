@@ -10,5 +10,11 @@ export default function ContactsLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <>{children}</>;
+  return (
+    <>
+      <h1>Página de contatos</h1>
+
+      {children}
+    </>
+  );
 }
