@@ -5,4 +5,7 @@ export const routesList: RouteData[] = [
   { name: "Contatos", href: "/contatos" },
 ];
 
-export const apiUrl = "https://economia.awesomeapi.com.br/last/USD-BRL";
+export const awesomeApiUrl = "https://economia.awesomeapi.com.br/last/USD-BRL";
+
+export const jsonPlaceholderApiUrl =
+  "https://jsonplaceholder.typicode.com/posts";
