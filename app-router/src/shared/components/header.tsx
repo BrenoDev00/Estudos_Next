@@ -1,15 +1,11 @@
 "use client";
 
+import { routesList } from "../constants";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export const Header: React.FC = () => {
   const pathName = usePathname();
-
-  const routesList: { name: string; href: string }[] = [
-    { name: "Home", href: "/" },
-    { name: "Contatos", href: "/contatos" },
-  ];
 
   return (
     <header className="bg-black text-white w-full py-2 px-4">
