@@ -4,11 +4,14 @@ import { DollarRateData } from "@/src/models/dollar-rate-data";
 import { useDollarRate } from "@/src/shared/hooks/use-dollar-rate";
 import { useState, useEffect } from "react";
 import Loading from "../loading";
+import Error from "../error";
 
 export default function Contacts() {
   const { getDollarRate } = useDollarRate();
 
-  const [dollarRateData, setDollarRateData] = useState<DollarRateData>();
+  const [dollarRateData, setDollarRateData] = useState<
+    DollarRateData | undefined
+  >(undefined);
 
   useEffect(() => {
     const loadDollarRate = async (): Promise<void> => {
@@ -19,6 +22,8 @@ export default function Contacts() {
 
     loadDollarRate();
   }, []);
+
+  if (!dollarRateData) return <Error />;
 
   return (
     <>
