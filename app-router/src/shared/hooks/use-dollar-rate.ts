@@ -1,39 +1,18 @@
 import { DollarRateData } from "@/src/models/dollar-rate-data";
-import { awesomeApiUrl, jsonPlaceholderApiUrl } from "../constants";
-import { UserData } from "@/src/models/user-data";
+import { DollarRateService } from "@/src/services/dollar-rate-service";
+import { useQuery } from "@tanstack/react-query";
 
-export function useDollarRate() {
-  const getDollarRate = async (): Promise<DollarRateData | undefined> => {
-    try {
-      const request = await fetch(awesomeApiUrl);
+export function useGetDollarRate() {
+  const dollarRateService = new DollarRateService();
 
-      const response: DollarRateData = await request.json();
+  const { data, isLoading, isError } = useQuery<DollarRateData>({
+    queryKey: ["dollar-rate"],
+    queryFn: dollarRateService.getRate,
+  });
 
-      return response;
-    } catch (error) {
-      console.error(error);
-    }
+  return {
+    data,
+    isLoading,
+    isError,
   };
-
-  const createUser = async (
-    userData: Omit<UserData, "id">
-  ): Promise<UserData | undefined> => {
-    try {
-      const request = await fetch(jsonPlaceholderApiUrl, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(userData),
-      });
-
-      const response: UserData = await request.json();
-
-      return response;
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  return { getDollarRate, createUser };
 }
