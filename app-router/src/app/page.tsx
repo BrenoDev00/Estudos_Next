@@ -1,33 +1,32 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { useDollarRate } from "../shared/hooks/use-dollar-rate";
+import { userCreateUser } from "../shared/hooks/use-user";
 import { UserData } from "../models/user-data";
+import Loading from "./loading";
 
 export default function Home() {
-  const { createUser } = useDollarRate();
+  const { isPending, isSuccess, mutate, data } = userCreateUser();
 
-  const [formTitle, setFormTitle] = useState<string>("");
-  const [formBody, setFormBody] = useState<string>("");
-  const [formUserId, setFormUserId] = useState<number>(0);
+  const [userForm, setUserForm] = useState<UserData>({
+    title: "",
+    body: "",
+    userId: 0,
+  });
 
-  const handleFormSubmit = async (event: FormEvent): Promise<void> => {
+  const handleFormSubmit = (event: FormEvent): void => {
     event.preventDefault();
 
-    const formData: Omit<UserData, "id"> = {
-      title: formTitle,
-      body: formBody,
-      userId: formUserId,
-    };
+    mutate(userForm);
 
-    const response = await createUser(formData);
-
-    if (response) {
-      alert(JSON.stringify(response));
+    if (isSuccess) {
+      alert(JSON.stringify(data));
     } else {
       alert("Erro ao submeter formulário");
     }
   };
+
+  if (isPending) return <Loading />;
 
   return (
     <div className="flex flex-col gap-4 items-center mt-[20%]">
@@ -36,24 +35,33 @@ export default function Home() {
         className="flex flex-col gap-2 border-2 border-gray-500 p-4"
       >
         <input
-          onInput={(event) => setFormTitle(event.currentTarget.value)}
-          value={formTitle}
+          onInput={(event) =>
+            setUserForm({ ...userForm, title: event.currentTarget.value })
+          }
+          value={userForm.title}
           type="text"
           placeholder="title"
           className="p-2 border border-gray-800 "
         />
 
         <input
-          onInput={(event) => setFormBody(event.currentTarget.value)}
-          value={formBody}
+          onInput={(event) =>
+            setUserForm({ ...userForm, body: event.currentTarget.value })
+          }
+          value={userForm.body}
           type="text"
           placeholder="body"
           className="p-2 border border-gray-800 "
         />
 
         <input
-          onInput={(event) => setFormUserId(Number(event.currentTarget.value))}
-          value={formUserId}
+          onInput={(event) =>
+            setUserForm({
+              ...userForm,
+              userId: Number(event.currentTarget.value),
+            })
+          }
+          value={userForm.userId}
           type="number"
           placeholder="userId"
           className="p-2 border border-gray-800 "

@@ -1,8 +1,6 @@
 "use client";
 
-import { DollarRateData } from "@/src/models/dollar-rate-data";
 import { useGetDollarRate } from "@/src/shared/hooks/use-dollar-rate";
-import { useState, useEffect } from "react";
 import Loading from "../loading";
 import Error from "../error";
 

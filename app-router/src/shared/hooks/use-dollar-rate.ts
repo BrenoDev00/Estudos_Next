@@ -8,6 +8,7 @@ export function useGetDollarRate() {
   const { data, isLoading, isError } = useQuery<DollarRateData>({
     queryKey: ["dollar-rate"],
     queryFn: dollarRateService.getRate,
+    refetchOnWindowFocus: false,
   });
 
   return {

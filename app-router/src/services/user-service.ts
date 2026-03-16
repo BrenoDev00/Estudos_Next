@@ -8,6 +8,6 @@ export class UserService {
       body: JSON.stringify(userData),
     });
 
-    return response.json();
+    return await response.json();
   };
 }
