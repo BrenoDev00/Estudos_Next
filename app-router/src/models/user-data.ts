@@ -1,5 +1,4 @@
-export type UserData = {
-  title: string;
-  body: string;
-  userId: number;
+export type User = {
+  username: string;
+  password: string;
 };
