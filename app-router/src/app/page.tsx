@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 export default function Home() {
   const router = useRouter();
 
-  const { isPending, mutate, data } = useGetAuth();
+  const { isPending, mutate, data, error } = useGetAuth();
 
   const [userForm, setUserForm] = useState<User>({
     username: "",
@@ -29,7 +29,7 @@ export default function Home() {
       alert("Credenciais inválidas");
     }
 
-    if (data?.error && data?.status !== 401) {
+    if (error) {
       alert("Erro interno, tente novamente");
     }
   };

@@ -7,10 +7,12 @@ export class AuthService {
   ): Promise<SignInResponse | undefined> => {
     const { username, password } = userCredentials;
 
-    return await signIn("credentials", {
+    const response = await signIn("credentials", {
       username,
       password,
       redirect: false,
     });
+
+    return response;
   };
 }

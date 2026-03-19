@@ -6,13 +6,14 @@ import { redirect } from "next/navigation";
 export function useGetAuth() {
   const authService = new AuthService();
 
-  const { isPending, mutate, data } = useMutation({
+  const { isPending, mutate, data, error } = useMutation({
     mutationFn: authService.login,
   });
 
   return {
     isPending,
     data,
+    error,
     mutate,
   };
 }
