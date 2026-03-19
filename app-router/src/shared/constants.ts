@@ -7,5 +7,4 @@ export const routesList: RouteData[] = [
 
 export const awesomeApiUrl = "https://economia.awesomeapi.com.br/last/USD-BRL";
 
-export const jsonPlaceholderApiUrl =
-  "https://jsonplaceholder.typicode.com/posts";
+export const dummyLoginApiUrl = "https://dummyjson.com/auth/login";

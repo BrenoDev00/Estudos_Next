@@ -1,12 +1,12 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { userCreateUser } from "../shared/hooks/use-user";
+import { useAuth } from "../shared/hooks/use-auth";
 import { User } from "../models/user-data";
 import Loading from "./loading";
 
 export default function Home() {
-  const { isPending, isSuccess, mutate, data } = userCreateUser();
+  const { isPending, mutate, data } = useAuth();
 
   const [userForm, setUserForm] = useState<User>({
     username: "",
@@ -18,10 +18,16 @@ export default function Home() {
 
     mutate(userForm);
 
-    if (isSuccess) {
+    if (data?.ok) {
       alert(JSON.stringify(data));
-    } else {
-      alert("Erro ao submeter formulário");
+    }
+
+    if (data?.error && data?.status === 401) {
+      alert("Credenciais inválidas");
+    }
+
+    if (data?.error && data?.status !== 401) {
+      alert("Erro interno, tente novamente");
     }
   };
 
@@ -29,7 +35,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col gap-4 items-center mt-[10%]">
-      <h1 className="text-lg text-center">Login</h1>
+      <h1 className="text-lg">Login</h1>
 
       <form
         onSubmit={handleFormSubmit}
@@ -39,6 +45,7 @@ export default function Home() {
           onInput={(event) =>
             setUserForm({ ...userForm, username: event.currentTarget.value })
           }
+          required
           value={userForm.username}
           type="text"
           placeholder="name"
@@ -46,6 +53,7 @@ export default function Home() {
         />
 
         <input
+          required
           onInput={(event) =>
             setUserForm({ ...userForm, password: event.currentTarget.value })
           }
