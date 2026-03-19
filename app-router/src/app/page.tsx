@@ -1,12 +1,15 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { useAuth } from "../shared/hooks/use-auth";
+import { useGetAuth } from "../shared/hooks/use-auth";
 import { User } from "../models/user-data";
 import Loading from "./loading";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
-  const { isPending, mutate, data } = useAuth();
+  const router = useRouter();
+
+  const { isPending, mutate, data } = useGetAuth();
 
   const [userForm, setUserForm] = useState<User>({
     username: "",
@@ -19,7 +22,7 @@ export default function Home() {
     mutate(userForm);
 
     if (data?.ok) {
-      alert(JSON.stringify(data));
+      router.push("/contatos");
     }
 
     if (data?.error && data?.status === 401) {
