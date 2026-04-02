@@ -1,3 +1,3 @@
-export const Tr = () => {
-  return <tr></tr>;
+export const Tr = ({ children }: { children: React.ReactNode }) => {
+  return <tr>{children}</tr>;
 };

@@ -11,3 +11,10 @@ export const awesomeApiUrl = "https://economia.awesomeapi.com.br/last/USD-BRL";
 export const dummyLoginApiUrl = "https://dummyjson.com/auth/login";
 
 export const dummyProductsApiUrl = "https://dummyjson.com/products/search";
+
+export const productsTableHeader: string[] = [
+  "Nome",
+  "Categoria",
+  "Preço",
+  "Quant. Estoque",
+];
