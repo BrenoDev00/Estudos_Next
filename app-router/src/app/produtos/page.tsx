@@ -4,13 +4,13 @@ import { useState } from "react";
 import { useAuthSession } from "@/src/shared/hooks/use-auth";
 import { useGetAllProducts } from "@/src/shared/hooks/use-product";
 import { ProductsTable } from "./components/products-table";
-import Loading from "../loading";
 import Error from "../error";
 import { SearchBar } from "@/src/shared/components/search-bar";
 
 export default function Products() {
   const { isAuthenticated } = useAuthSession();
-  // isAuthenticated();
+  isAuthenticated();
+
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   const { data, isLoading, isError } = useGetAllProducts(searchTerm);
@@ -23,7 +23,11 @@ export default function Products() {
 
       <div className="flex flex-col gap-4 items-start">
         <SearchBar onSearch={setSearchTerm} />
-        <ProductsTable products={data?.products ?? []} />
+        <ProductsTable
+          products={data?.products ?? []}
+          isLoading={isLoading}
+          isEmpty={!data?.products.length}
+        />
       </div>
     </main>
   );

@@ -2,7 +2,15 @@ import { Product } from "@/src/models/product";
 import { Table } from "@/src/shared/components/table";
 import { productsTableHeader } from "@/src/shared/constants";
 
-export const ProductsTable = ({ products }: { products: Product[] }) => {
+export const ProductsTable = ({
+  products,
+  isLoading,
+  isEmpty,
+}: {
+  products: Product[];
+  isLoading: boolean;
+  isEmpty: boolean;
+}) => {
   const formatProductPrice = (price: number): string => {
     return price.toLocaleString("pt-BR", {
       style: "currency",
@@ -10,7 +18,15 @@ export const ProductsTable = ({ products }: { products: Product[] }) => {
     });
   };
 
-  if (!products.length)
+  if (isLoading) {
+    return (
+      <p className="text-blue-500 text-center font-semibold text-xl">
+        Carregando...
+      </p>
+    );
+  }
+
+  if (isEmpty)
     return (
       <p className="text-blue-500 text-center font-semibold text-xl">
         Nenhum produto encontrado.
