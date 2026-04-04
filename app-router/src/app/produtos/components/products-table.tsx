@@ -10,6 +10,13 @@ export const ProductsTable = ({ products }: { products: Product[] }) => {
     });
   };
 
+  if (!products.length)
+    return (
+      <p className="text-blue-500 text-center font-semibold text-xl">
+        Nenhum produto encontrado.
+      </p>
+    );
+
   return (
     <table>
       <Table.Thead>
