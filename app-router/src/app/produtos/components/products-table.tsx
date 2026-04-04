@@ -3,6 +3,13 @@ import { Table } from "@/src/shared/components/table";
 import { productsTableHeader } from "@/src/shared/constants";
 
 export const ProductsTable = ({ products }: { products: Product[] }) => {
+  const formatProductPrice = (price: number): string => {
+    return price.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
+  };
+
   return (
     <table>
       <Table.Thead>
@@ -19,7 +26,7 @@ export const ProductsTable = ({ products }: { products: Product[] }) => {
             <Table.Tr key={product.id}>
               <Table.Td>{product.title}</Table.Td>
               <Table.Td>{product.category}</Table.Td>
-              <Table.Td>{product.price}</Table.Td>
+              <Table.Td>{formatProductPrice(product.price)}</Table.Td>
               <Table.Td>{product.stock}</Table.Td>
             </Table.Tr>
           );
