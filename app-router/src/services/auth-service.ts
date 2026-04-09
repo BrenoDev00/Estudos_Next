@@ -1,4 +1,4 @@
-import { User } from "../models/user-data";
+import { User } from "../models/user";
 import { signIn, SignInResponse } from "next-auth/react";
 
 export class AuthService {

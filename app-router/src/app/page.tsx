@@ -2,7 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { useGetAuth } from "../shared/hooks/use-auth";
-import { User } from "../models/user-data";
+import { User } from "../models/user";
 import Loading from "./loading";
 import { useRouter } from "next/navigation";
 
