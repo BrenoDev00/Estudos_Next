@@ -8,12 +8,24 @@ import Error from "../error";
 import { SearchBar } from "@/src/shared/components/search-bar";
 
 export default function Products() {
-  const { isAuthenticated } = useAuthSession();
-  isAuthenticated();
+  useAuthSession().isAuthenticated();
 
   const [searchTerm, setSearchTerm] = useState<string>("");
 
-  const { data, isLoading, isError } = useGetAllProducts(searchTerm);
+  const [columnSorting, setColumnSorting] = useState<{
+    sortBy: string;
+    isAscOrDesc: string;
+  }>({
+    sortBy: "",
+    isAscOrDesc: "",
+  });
+
+  const { data, isLoading, isError } = useGetAllProducts(
+    searchTerm,
+    columnSorting,
+  );
+
+  const isEmpty = !data?.products.length;
 
   if (isError) return <Error />;
 
@@ -26,7 +38,10 @@ export default function Products() {
         <ProductsTable
           products={data?.products ?? []}
           isLoading={isLoading}
-          isEmpty={!data?.products.length}
+          isEmpty={isEmpty}
+          onSortColumn={(sortBy, isAscOrDesc) =>
+            setColumnSorting({ sortBy, isAscOrDesc })
+          }
         />
       </div>
     </main>

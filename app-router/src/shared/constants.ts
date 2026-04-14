@@ -12,9 +12,9 @@ export const dummyLoginApiUrl = "https://dummyjson.com/auth/login";
 
 export const dummyProductsApiUrl = "https://dummyjson.com/products";
 
-export const productsTableHeader: string[] = [
-  "Nome",
-  "Categoria",
-  "Preço",
-  "Quant. Estoque",
+export const productsTableHeader: { name: string; sortBy?: string }[] = [
+  { name: "Nome", sortBy: "title" },
+  { name: "Categoria" },
+  { name: "Preço", sortBy: "price" },
+  { name: "Quant. Estoque" },
 ];
