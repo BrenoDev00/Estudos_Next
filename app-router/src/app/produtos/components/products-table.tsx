@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Product } from "@/src/models/product";
 import { Table } from "@/src/shared/components/table";
 import { productsTableHeader } from "@/src/shared/constants";
@@ -6,11 +7,23 @@ export const ProductsTable = ({
   products,
   isLoading,
   isEmpty,
+  onSortColumn,
 }: {
   products: Product[];
   isLoading: boolean;
   isEmpty: boolean;
+  onSortColumn: (
+    sortBy: "title" | "price",
+    isAscOrDesc: "asc" | "desc",
+  ) => void;
 }) => {
+  const [isAscOrDesc, setIsAscOrDesc] = useState<"asc" | "desc">("asc");
+
+  const handleSortColumn = (sortBy: "title" | "price"): void => {
+    setIsAscOrDesc(isAscOrDesc === "asc" ? "desc" : "asc");
+    onSortColumn(sortBy, isAscOrDesc);
+  };
+
   const formatProductPrice = (price: number): string => {
     return price.toLocaleString("pt-BR", {
       style: "currency",
@@ -37,8 +50,25 @@ export const ProductsTable = ({
     <table>
       <Table.Thead>
         <Table.Tr>
-          {productsTableHeader.map((name, index) => {
-            return <Table.Th key={index}>{name}</Table.Th>;
+          {productsTableHeader.map((column, index) => {
+            return (
+              <Table.Th key={index}>
+                <div className="flex items-center gap-2">
+                  {column.name}
+
+                  {column.sortBy && (
+                    <button
+                      className="cursor-pointer"
+                      onClick={() =>
+                        handleSortColumn(column.sortBy as "title" | "price")
+                      }
+                    >
+                      <img src="/sort-icon.svg" className="w-4" />
+                    </button>
+                  )}
+                </div>
+              </Table.Th>
+            );
           })}
         </Table.Tr>
       </Table.Thead>
